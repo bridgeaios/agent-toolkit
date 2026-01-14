@@ -387,13 +387,13 @@ function DocumentWatcher(handle: DocumentHandle) {
     ...handle,
     onEvent: (event) => {
       switch (event.type) {
-        case DocumentEvent.DocumentEditedEvent:
+        case 'edited':
           console.log('Edited:', event.documentId)
           break
-        case DocumentEvent.DocumentPublishedEvent:
+        case 'published':
           console.log('Published:', event.documentId)
           break
-        case DocumentEvent.DocumentDeletedEvent:
+        case 'deleted':
           console.log('Deleted:', event.documentId)
           break
       }
