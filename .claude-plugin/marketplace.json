@@ -30,7 +30,13 @@
         "name": "Sanity.io Team",
         "email": "support@sanity.io",
         "url": "https://www.sanity.io"
-      }
+      },
+      "skills": [
+        "./skills/sanity-best-practices",
+        "./skills/content-modeling-best-practices",
+        "./skills/seo-aeo-best-practices",
+        "./skills/content-experimentation-best-practices"
+      ]
     }
   ]
 }
