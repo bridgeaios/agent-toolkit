@@ -49,19 +49,36 @@ defineField({
 2. Deploy schema changes
 
 **Phase 2: Migrate**
-1. Update frontend to use new fields (with fallbacks)
-2. Run migration script to move data:
+1. Update frontend to use new fields (with fallbacks using `coalesce()`)
+2. Create a migration file in `migrations/` folder:
 
 ```typescript
-// Migration script example
-const documents = await client.fetch(`*[_type == "article" && defined(oldTitle)]`)
+// migrations/rename-oldTitle-to-newTitle/index.ts
+import {defineMigration, at, setIfMissing, unset} from 'sanity/migrate'
 
-for (const doc of documents) {
-  await client.patch(doc._id)
-    .set({ newTitle: doc.oldTitle })
-    .unset(['oldTitle'])
-    .commit()
-}
+export default defineMigration({
+  title: 'Rename oldTitle to newTitle',
+  documentTypes: ['article'],
+  filter: 'defined(oldTitle) && !defined(newTitle)',
+  migrate: {
+    document(doc) {
+      return [
+        at('newTitle', setIfMissing(doc.oldTitle)),
+        at('oldTitle', unset())
+      ]
+    }
+  }
+})
+```
+
+3. Run the migration:
+
+```bash
+# Dry run first (default)
+sanity migration run rename-oldTitle-to-newTitle
+
+# Execute when ready
+sanity migration run rename-oldTitle-to-newTitle --no-dry-run
 ```
 
 **Phase 3: Remove**

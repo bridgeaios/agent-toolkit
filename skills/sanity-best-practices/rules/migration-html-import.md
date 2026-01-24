@@ -104,4 +104,36 @@ async function uploadImage(client, imageUrl) {
 }
 ```
 
-Reference: [Content Migration Cheatsheet](https://www.sanity.io/docs/content-lake/content-migration-cheatsheet)
+### Using in a Migration
+
+Wrap this in `defineMigration` for reproducible imports:
+
+```typescript
+// migrations/import-wordpress-posts/index.ts
+import {defineMigration, createOrReplace} from 'sanity/migrate'
+import {htmlToBlocks} from '@portabletext/block-tools'
+
+export default defineMigration({
+  title: 'Import WordPress posts',
+  async *migrate(documents, context) {
+    const posts = await fetchWordPressPosts() // Your import source
+    
+    for (const post of posts) {
+      const blocks = htmlToBlocks(post.content, blockContentType, {
+        parseHtml: html => new JSDOM(html).window.document,
+      })
+      
+      yield createOrReplace({
+        _id: `post-${post.slug}`,
+        _type: 'post',
+        title: post.title,
+        body: blocks,
+      })
+    }
+  }
+})
+```
+
+Run with: `sanity migration run import-wordpress-posts --no-dry-run`
+
+Reference: [Schema and Content Migrations](https://www.sanity.io/docs/content-lake/schema-and-content-migrations)
