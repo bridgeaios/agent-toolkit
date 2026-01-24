@@ -39,9 +39,9 @@ Image             → One image with responsive crops
 Ask: "If we completely redesigned the site, would these field names still make sense?"
 
 - `threeColumnFeatures` → ❌ Fails (what if 2 columns?)
-- `features` → ✅ Works (features are features)
+- `features` → ✅ Works (describes the content's purpose: a list of product features)
 - `blueHighlightBox` → ❌ Fails (what if we go purple?)
-- `callout` → ✅ Works (callouts are callouts)
+- `callout` → ✅ Works (describes the content's role: an attention-grabbing aside)
 
 ## Sanity Implementation
 

@@ -44,9 +44,6 @@ const QUERY = defineQuery(groq`*[_type == "post"]`);
 
 // Option B: Comment prefix (for plain template literals)
 const QUERY = defineQuery(/* groq */ `*[_type == "post"]`);
-
-// Option C: Just defineQuery (TypeGen works, no editor highlighting)
-const QUERY = defineQuery(`*[_type == "post"]`);
 ```
 
 ### Query Fragments

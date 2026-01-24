@@ -27,15 +27,7 @@ defineField({
   type: 'image',
   options: { 
     hotspot: true  // 👈 CRITICAL
-  },
-  fields: [
-    defineField({
-      name: 'alt',
-      type: 'string',
-      title: 'Alternative Text',
-      validation: rule => rule.required().warning('Alt text is important for SEO and accessibility')
-    })
-  ]
+  }
 })
 ```
 
