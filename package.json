@@ -1,0 +1,24 @@
+{
+  "name": "sanity-agent-toolkit",
+  "version": "1.0.0",
+  "description": "AI agent resources for Sanity development",
+  "private": true,
+  "scripts": {
+    "validate": "skills-ref validate ./skills/sanity-best-practices && skills-ref validate ./skills/content-modeling-best-practices && skills-ref validate ./skills/seo-aeo-best-practices && skills-ref validate ./skills/content-experimentation-best-practices",
+    "validate:sanity": "skills-ref validate ./skills/sanity-best-practices",
+    "validate:content-modeling": "skills-ref validate ./skills/content-modeling-best-practices",
+    "validate:seo": "skills-ref validate ./skills/seo-aeo-best-practices",
+    "validate:experimentation": "skills-ref validate ./skills/content-experimentation-best-practices"
+  },
+  "devDependencies": {
+    "skills-ref": "^0.1.5"
+  },
+  "keywords": [
+    "sanity",
+    "ai",
+    "agent",
+    "skills",
+    "claude"
+  ],
+  "license": "MIT"
+}

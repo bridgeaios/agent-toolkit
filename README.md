@@ -5,16 +5,16 @@
   <h1 align="center">Sanity Agent Toolkit</h1>
 </p>
 
-Collection of resources to help AI agents build better with [Sanity](https://www.sanity.io). Supports Cursor, Claude Code, VS Code, Lovable, v0, and any other editor/agent compatible with MCP or `.mdc` rules.
+Collection of resources to help AI agents build better with [Sanity](https://www.sanity.io). Supports Cursor, Claude Code, VS Code, Lovable, v0, and any other editor/agent compatible with MCP, [Agent Skills](https://agentskills.io), or `.mdc` rules.
 
 ---
 
 ## Features
 
 - **Agent rules:** 20+ portable `.mdc` files covering schema design, GROQ, Visual Editing, SEO, localization, migrations, and front-end framework integrations.
+- **Agent skills:** Comprehensive best practices skills for Sanity development, content modeling, SEO/AEO, and experimentation.
 - **MCP server:** Direct access to your Sanity projects (content, datasets, releases, schemas) and agent rules.
 - **Claude Code plugin:** Slash commands and MCP integration for Claude Code users.
-- **Claude Code agent skills:** Interactive workflows for schema scaffolding, visual editing setup, and type generation.
 
 ---
 
@@ -23,8 +23,9 @@ Collection of resources to help AI agents build better with [Sanity](https://www
 Choose your path based on how you want agents to work with Sanity:
 
 1. **MCP server** — Give your agent always up-to-date rules and full access to your Sanity projects. No local files to maintain. Works with Cursor, VS Code, Claude Code, Lovable, v0, and other MCP-compatible clients.
-2. **Claude Code plugin** — Adds interactive skills and slash commands on top of MCP for guided workflows.
-3. **Manual installation** — Copy rules locally for offline use. You'll need to update them yourself.
+2. **Agent skills** — Install best practices skills for Sanity, content modeling, SEO/AEO, and experimentation. Works with Cursor, Claude Code, and any [Agent Skills](https://agentskills.io)-compatible agent.
+3. **Claude Code plugin** — Adds interactive skills and slash commands on top of MCP for guided workflows.
+4. **Manual installation** — Copy rules locally for offline use. You'll need to update them yourself.
 
 ### Option 1: Install MCP server (recommended)
 
@@ -48,7 +49,7 @@ Uses your logged-in CLI user for authentication — no manual tokens or OAuth ne
 One-click install:<br>
 [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=Sanity&config=eyJ0eXBlIjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbWNwLnNhbml0eS5pbyJ9)
 
-Or manually add to `.cursor/mcp.json`:
+Or manually: Open **Command Palette** (`Cmd+Shift+P` / `Ctrl+Shift+P`) → **View: Open MCP Settings** → **+ New MCP Server** → add to `mcp.json`:
 ```json
 {
   "mcpServers": {
@@ -64,8 +65,7 @@ Or manually add to `.cursor/mcp.json`:
 <details>
 <summary><strong>Claude Code</strong></summary>
 
-Run in terminal and authenticate with OAuth on next launch:
-
+Run in terminal. Authenticate with OAuth on next launch:
 ```bash
 claude mcp add Sanity -t http https://mcp.sanity.io --scope user
 ```
@@ -74,7 +74,7 @@ claude mcp add Sanity -t http https://mcp.sanity.io --scope user
 <details>
 <summary><strong>VS Code</strong></summary>
 
-Command Palette → `MCP: Open User Configuration` → add:
+Open **Command Palette** (`Cmd+Shift+P` / `Ctrl+Shift+P`) → **MCP: Open User Configuration** → add:
 ```json
 {
   "servers": {
@@ -90,13 +90,38 @@ Command Palette → `MCP: Open User Configuration` → add:
 <details>
 <summary><strong>Lovable</strong></summary>
 
-**Settings** → **Connectors** → **Personal connectors** → **New MCP server** → Enter `Sanity` as name and `https://mcp.sanity.io` as URL → **Add & authorize**.
+**Settings** → **Connectors** → **Personal connectors** → **New MCP server** → Enter `Sanity` as name and `https://mcp.sanity.io` as Server URL → **Add & authorize** → Authenticate with OAuth.
 </details>
 
 <details>
 <summary><strong>v0</strong></summary>
 
-Click **Prompt Tools** → **MCPs** → **Browse MCPs** → Select **Sanity** → **Authorize** → Authenticate with OAuth.
+In the prompt input field, click **Prompt Tools** → **MCPs** → **Add New** → Select **Sanity** → **Authorize** → Authenticate with OAuth.
+</details>
+
+<details>
+<summary><strong>Replit</strong></summary>
+
+Go to [Integrations Page](https://replit.com/integrations) → scroll to **MCP Servers for Replit Agent** → **Add MCP server** → Enter `Sanity` as name and `https://mcp.sanity.io` as Server URL → **Test & Save** → Authenticate with OAuth.
+</details>
+
+<details>
+<summary><strong>OpenCode</strong></summary>
+
+Add to your `opencode.json`:
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "sanity": {
+      "type": "remote",
+      "url": "https://mcp.sanity.io",
+      "oauth": {}
+    }
+  }
+}
+```
+Then run: `opencode mcp auth sanity`
 </details>
 
 <details>
@@ -121,7 +146,22 @@ If your client doesn't support remote MCP servers, use a proxy like `mcp-remote`
 
 See the [Sanity MCP docs](https://www.sanity.io/docs/compute-and-ai/mcp-server) for authorization options and troubleshooting.
 
-### Option 2: Install Claude Code plugin
+### Option 2: Install Agent Skills
+
+Install best practices skills that work with any [Agent Skills](https://agentskills.io)-compatible agent.
+
+```bash
+npx skills add sanity-io/agent-toolkit
+```
+
+**Cursor:**
+1. Open **Cursor Settings** (Cmd+Shift+J / Ctrl+Shift+J)
+2. Navigate to **Rules** → **Add Rule** → **Remote Rule (Github)**
+3. Enter: `sanity-io/agent-toolkit`
+
+See [Option 3](#option-3-install-claude-code-plugin) for Claude Code plugin installation.
+
+### Option 3: Install Claude Code plugin
 
 For Claude Code users, install the full plugin with skills and slash commands:
 
@@ -147,7 +187,7 @@ You should see the Sanity skills listed.
 
 Or run `/sanity` to explore all capabilities.
 
-### Option 3: Manual installation
+### Option 4: Manual installation
 
 Install the context rules locally to teach your editor Sanity best practices:
 
@@ -164,32 +204,23 @@ Install the context rules locally to teach your editor Sanity best practices:
 With MCP connected, your AI can use tools like:
 - `query_documents` — run GROQ queries directly
 - `create_project` — create a new Sanity project
-- `create_document_from_markdown` — map markdown to Sanity documents
-- `patch_document` — surgical edits to existing documents
+- `create_documents_from_markdown` — map markdown to Sanity documents
+- `patch_document_from_json` — surgical edits to existing documents
 - `transform_image` — edit images with AI
 - `list_sanity_rules` / `get_sanity_rules` — load agent rules on demand
 
-### Slash commands (Claude Code)
+See the [full list of available tools](https://www.sanity.io/docs/compute-and-ai/mcp-server#k4ae680bb2e88).
 
-| Command | What it does |
+### Agent skills
+
+Best practices skills that agents like Claude Code, Cursor, GitHub Copilot, etc. can discover and use automatically. Skills follow the [Agent Skills](https://agentskills.io) format. See [Option 2](#option-2-install-agent-skills) for installation.
+
+| Skill | Description |
 | :--- | :--- |
-| `/sanity` | List available skills and help topics |
-| `/review` | Review code for Sanity best practices |
-| `/typegen` | Run TypeGen and troubleshoot issues |
-| `/deploy-schema` | Deploy schema with verification |
-
-### Interactive skills (Claude Code)
-
-Skills guide the AI through multi-step workflows in your codebase.
-
-| Skill | What it does | Example Trigger |
-| :--- | :--- | :--- |
-| **Schema Scaffolder** | Creates strict, well-typed schema definitions using best-practice templates. | "Create a blog post schema" |
-| **Visual Editing Setup** | Detects your framework and configures loaders, stega, and overlays. | "Configure preview mode" |
-| **Schema Manager** | Handles the full lifecycle: scaffolding, safe deprecation, and migrations. | "Deprecate the 'body' field" |
-| **GROQ Assistant** | Writes optimized queries using `defineQuery` and proper projections. | "Write a query for recent posts" |
-| **TypeGen Fixer** | Diagnoses and fixes TypeScript generation issues. | "Why are my types missing?" |
-| **Install Rules** | Copies context rules to your project for local agent guidance. | "Install Sanity rules locally" |
+| **sanity-best-practices** | GROQ performance, schema design, Visual Editing, images, Portable Text, Studio, TypeGen, localization, and migrations |
+| **content-modeling-best-practices** | Structured content principles: separation of concerns, references vs embedding, content reuse |
+| **seo-aeo-best-practices** | SEO/AEO with EEAT principles, structured data (JSON-LD), technical SEO patterns |
+| **content-experimentation-best-practices** | A/B testing methodology, statistical foundations, experiment design |
 
 ### Getting started flow
 
@@ -240,6 +271,15 @@ These files provide passive knowledge to the AI, ensuring generated code follows
 - **`sanity-seo.mdc`**: Metadata, sitemaps, and Open Graph.
 </details>
 
+### Slash commands (Claude Code)
+
+| Command | What it does |
+| :--- | :--- |
+| `/sanity` | List available skills and help topics |
+| `/review` | Review code for Sanity best practices |
+| `/typegen` | Run TypeGen and troubleshoot issues |
+| `/deploy-schema` | Deploy schema with verification |
+
 ---
 
 ## Repository structure
@@ -250,20 +290,22 @@ sanity-io/agent-toolkit/
 ├── README.md                      # This file
 ├── rules/                         # Context rules (.mdc)
 │   ├── sanity-schema.mdc          # Schema design patterns
-│   ├── sanity-get-started.mdc     # 3-phase onboarding guide
+│   ├── sanity-groq.mdc            # GROQ query patterns
 │   ├── sanity-nextjs.mdc          # Next.js integration
-│   ├── sanity-remix.mdc           # React Router integration
-│   └── ...                        # Additional rules
+│   └── ...                        # Additional framework rules
+├── skills/                        # Agent skills (agentskills.io format)
+│   ├── sanity-best-practices/     # Comprehensive Sanity skill
+│   │   ├── SKILL.md
+│   │   └── rules/                 # Individual rule files
+│   ├── content-modeling-best-practices/
+│   ├── seo-aeo-best-practices/
+│   └── content-experimentation-best-practices/
 └── sanity-plugin/                 # Claude Code plugin
-    ├── commands/                  # Slash commands
-    │   ├── sanity.md              # /sanity help
-    │   ├── review.md              # /review
-    │   ├── typegen.md             # /typegen
-    │   └── deploy-schema.md       # /deploy-schema
-    └── skills/                    # Interactive workflows
-        ├── sanity-scaffold/
-        ├── sanity-visual-editing-setup/
-        └── ...
+    └── commands/                  # Slash commands
+        ├── sanity.md              # /sanity help
+        ├── review.md              # /review
+        ├── typegen.md             # /typegen
+        └── deploy-schema.md       # /deploy-schema
 ```
 
 ---
@@ -282,10 +324,14 @@ sanity-io/agent-toolkit/
 
 ## Contributing
 
-Found a better pattern? Missing a framework?
+Found a better pattern? Missing a framework or best practice?
+
 1. Fork the repo.
-2. Update the relevant `.mdc` file in `rules/`.
-3. Submit a PR.
+2. Update the relevant file:
+   - **Rules:** Edit `.mdc` files in `rules/`
+   - **Skills:** Edit rule files in `skills/<skill-name>/rules/`
+3. Run `npm run validate` to check skill validity.
+4. Submit a PR.
 
 ---
 
