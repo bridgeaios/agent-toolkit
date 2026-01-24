@@ -15,11 +15,6 @@ Every item in a Sanity array automatically gets a `_key` property. Always use `_
 {items.map((item, index) => (
   <Component key={index} {...item} />
 ))}
-
-// ❌ Also wrong - random keys regenerate on each render
-{items.map((item) => (
-  <Component key={Math.random()} {...item} />
-))}
 ```
 
 **Correct (_key from Sanity):**
@@ -49,7 +44,6 @@ Every item in a Sanity array automatically gets a `_key` property. Always use `_
 |----------|---------------------|----------------|------------|
 | `_key` | ✅ Stable | ✅ Works | ✅ Smooth |
 | `index` | ❌ Breaks on reorder | ❌ Broken overlays | ❌ Flickers |
-| `random` | ❌ Always re-renders | ❌ Broken overlays | ❌ Destroys state |
 
 ### Schema Note
 

@@ -46,6 +46,7 @@ const components: PortableTextComponents = {
   marks: {
     strong: ({ children }) => <strong className="font-bold">{children}</strong>,
     link: ({ children, value }) => {
+      // Tip: Use your framework's Link component for internal links (e.g., next/link)
       const rel = !value.href?.startsWith("/") ? "noreferrer noopener" : undefined;
       return (
         <a href={value.href} rel={rel} className="underline text-blue-600">
