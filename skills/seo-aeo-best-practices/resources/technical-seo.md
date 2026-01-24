@@ -111,19 +111,19 @@ async redirects() {
 
 ## Performance
 
-Core Web Vitals impact rankings:
+[Core Web Vitals](https://web.dev/articles/defining-core-web-vitals-thresholds) impact rankings:
 
 - **LCP (Largest Contentful Paint):** < 2.5s
-- **FID (First Input Delay):** < 100ms
+- **INP (Interaction to Next Paint):** < 200ms
 - **CLS (Cumulative Layout Shift):** < 0.1
 
-### Image Optimization
+### Image Optimization (Next.js example)
 - Use `next/image` with Sanity URL builder
 - Serve WebP/AVIF formats
 - Implement LQIP blur placeholders
 - Set explicit dimensions
 
-### Font Loading
+### Font Loading (Next.js example)
 ```typescript
 // Prevent layout shift
 import { Inter } from 'next/font/google'
