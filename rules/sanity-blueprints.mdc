@@ -27,8 +27,8 @@ Blueprint (code) → Stack (deployed state) → Resources (real infrastructure)
 
 ### How it works
 
-1. You write a Blueprint file describing your desired resources
-2. Run `sanity blueprints deploy` to apply it
+1. Initialize and edit a Blueprint file describing desired resources
+2. Run `sanity blueprints deploy` to apply changes to resources in a Stack
 3. Blueprints creates/updates a Stack with your resources
 4. The Stack persists — future deploys update it based on Blueprint changes
 
