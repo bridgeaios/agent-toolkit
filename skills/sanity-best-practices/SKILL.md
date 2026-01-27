@@ -57,8 +57,4 @@ Each rule file contains:
 
 ## Framework Integration
 
-Framework-specific guidance (Next.js, Astro, Remix, etc.) is available in the `rules/*.mdc` files in the repository root. The skill references them when relevant but doesn't duplicate content.
-
-## Full Compiled Document
-
-For the complete guide with all rules expanded: `AGENTS.md`
+Framework-specific guidance (Next.js, Astro, Remix, etc.) is available via the Sanity MCP server using `list_sanity_rules` and `get_sanity_rules` tool calls when available. If the MCP server is not configured, run `npx sanity@latest mcp configure` to set it up.
