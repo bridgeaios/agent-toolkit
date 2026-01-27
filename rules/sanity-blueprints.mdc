@@ -10,7 +10,7 @@ alwaysApply: false
 
 Blueprints is Sanity's **Infrastructure as Code (IaC)** solution. It lets you define Sanity infrastructure declaratively in code, track it in version control, and deploy it programmatically.
 
-Instead of manually configuring CORS origins, webhooks, datasets, and functions through web dashboards, you define them in a Blueprint file and deploy with a single command.
+Configure Sanity resources in a Blueprint file and deploy with a single command.
 
 ## Mental Model
 
@@ -46,17 +46,10 @@ Blueprint (code) → Stack (deployed state) → Resources (real infrastructure)
 
 Blueprints can manage these Sanity components:
 
-| Resource | Status |
-|----------|--------|
-| Document Functions | Released |
-| Media Library Asset Functions | Released |
-| CORS Origins | In Progress |
-| Webhooks | In Progress |
-| Datasets | In Progress |
-| Access Roles | In Progress |
-| Robots (API tokens) | In Progress |
-| Studios | Planned |
-| Schema | Planned |
+- Document Functions
+- Media Library Asset Functions
+
+More resources are coming soon.
 
 ## CLI Commands
 
