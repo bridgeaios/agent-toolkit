@@ -23,7 +23,7 @@ Blueprint (code) → Stack (deployed state) → Resources (real infrastructure)
 | **Blueprint** | A declarative configuration file (`sanity.blueprint.ts`) that describes your desired infrastructure |
 | **Stack** | The deployed, real-world collection of resources managed by Blueprints |
 | **Resources** | Individual Sanity components: CORS origins, webhooks, datasets, functions, roles, robots |
-| **Operation** | A deployment execution that applies Blueprint changes to a Stack |
+| **Operation** | A deployment execution that applies Blueprint changes to resources in a Stack |
 
 ### How it works
 
