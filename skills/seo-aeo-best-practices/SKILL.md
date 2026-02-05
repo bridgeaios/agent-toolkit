@@ -1,6 +1,6 @@
 ---
 name: seo-aeo-best-practices
-description: SEO and AEO (Answer Engine Optimization) best practices including EEAT principles, structured data, and technical SEO. Use when implementing metadata, sitemaps, structured data, or optimizing content for search engines and AI assistants.
+description: SEO, AEO (Answer Engine Optimization), and GEO (Generative Engine Optimization) best practices including EEAT principles, structured data, and technical SEO. Use when implementing metadata, sitemaps, structured data, or optimizing content for search engines and AI assistants.
 license: MIT
 metadata:
   author: sanity
@@ -28,6 +28,9 @@ Optimizing content to rank well in traditional search results (Google, Bing).
 
 ### AEO (Answer Engine Optimization)
 Optimizing content to be selected as authoritative answers by AI systems.
+
+### GEO (Generative Engine Optimization)
+Also known as AEO, GEO focuses on optimizing content to be surfaced and cited by generative AI systems (ChatGPT, Perplexity, Claude, Gemini, etc.). The terms AEO and GEO are interchangeable and refer to the same optimization strategies.
 
 ### EEAT (Experience, Expertise, Authoritativeness, Trustworthiness)
 Google's framework for evaluating content quality.
