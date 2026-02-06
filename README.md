@@ -288,24 +288,26 @@ These files provide passive knowledge to the AI, ensuring generated code follows
 sanity-io/agent-toolkit/
 ├── AGENTS.md                      # Knowledge router & agent behavior
 ├── README.md                      # This file
+├── .claude-plugin/                # Claude Code plugin configuration
+│   └── marketplace.json           # Plugin metadata and marketplace config
+├── .mcp.json                      # MCP server configuration
+├── commands/                      # Slash commands (Claude Code)
+│   ├── sanity.md                  # /sanity help
+│   ├── review.md                  # /review
+│   ├── typegen.md                 # /typegen
+│   └── deploy-schema.md           # /deploy-schema
 ├── rules/                         # Context rules (.mdc)
 │   ├── sanity-schema.mdc          # Schema design patterns
 │   ├── sanity-groq.mdc            # GROQ query patterns
 │   ├── sanity-nextjs.mdc          # Next.js integration
 │   └── ...                        # Additional framework rules
-├── skills/                        # Agent skills (agentskills.io format)
-│   ├── sanity-best-practices/     # Comprehensive Sanity skill
-│   │   ├── SKILL.md
-│   │   └── rules/                 # Individual rule files
-│   ├── content-modeling-best-practices/
-│   ├── seo-aeo-best-practices/
-│   └── content-experimentation-best-practices/
-└── sanity-plugin/                 # Claude Code plugin
-    └── commands/                  # Slash commands
-        ├── sanity.md              # /sanity help
-        ├── review.md              # /review
-        ├── typegen.md             # /typegen
-        └── deploy-schema.md       # /deploy-schema
+└── skills/                        # Agent skills (agentskills.io format)
+    ├── sanity-best-practices/     # Comprehensive Sanity skill
+    │   ├── SKILL.md
+    │   └── rules/                 # Individual rule files
+    ├── content-modeling-best-practices/
+    ├── seo-aeo-best-practices/
+    └── content-experimentation-best-practices/
 ```
 
 ---

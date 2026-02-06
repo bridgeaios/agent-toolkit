@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "sanity-plugin",
-      "source": "./sanity-plugin",
+      "source": "./",
       "description": "Sanity developer companion for Claude Code with slash commands and skills for schema scaffolding, Visual Editing setup, GROQ optimization, TypeGen, and schema management.",
       "version": "1.0.0",
       "homepage": "https://github.com/sanity-io/agent-toolkit",
@@ -31,12 +31,8 @@
         "email": "support@sanity.io",
         "url": "https://www.sanity.io"
       },
-      "skills": [
-        "./skills/sanity-best-practices",
-        "./skills/content-modeling-best-practices",
-        "./skills/seo-aeo-best-practices",
-        "./skills/content-experimentation-best-practices"
-      ]
+      "category": "cms",
+      "tags": ["sanity", "cms", "groq", "structured-content", "visual-editing"]
     }
   ]
 }
