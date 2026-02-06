@@ -1,6 +1,6 @@
 ---
-description: Best practices for handling images in Sanity: Schema, URL generation, and Next.js Image integration.
-globs: **/*.tsx, **/*.ts
+description: "Best practices for handling images in Sanity: Schema, URL generation, and Next.js Image integration."
+globs: "**/*.tsx, **/*.ts"
 alwaysApply: false
 ---
 

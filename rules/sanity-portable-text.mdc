@@ -1,6 +1,6 @@
 ---
 description: Portable Text (Rich Text) rendering and custom component creation for React/Next.js.
-globs: **/*.tsx
+globs: "**/*.tsx"
 alwaysApply: false
 ---
 
