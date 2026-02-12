@@ -6,12 +6,16 @@ tags: [portable-text, html, conversion, migration, import]
 
 # Convert HTML to Portable Text
 
-Use `@portabletext/block-tools` to parse HTML into Portable Text blocks. This is the primary tool for migrating content from legacy CMSs.
+Use `@portabletext/block-tools` to parse HTML into Portable Text blocks. This is the primary tool for migrating HTML content from legacy CMSs. It has built-in support for content from Google Docs, Microsoft Word, and Notion.
+
+> **Note:** For Markdown sources, use `@portabletext/markdown` instead — it's simpler and more direct. See `rules/markdown-to-pt.md`.
+
+> **Note:** `@sanity/block-tools` is the legacy package name. Use `@portabletext/block-tools` for new projects. The API is identical.
 
 ## Setup
 
 ```bash
-npm install @portabletext/block-tools jsdom
+npm install @portabletext/block-tools jsdom @sanity/schema
 ```
 
 In Node.js, you must provide a `parseHtml` function using JSDOM:
@@ -19,15 +23,15 @@ In Node.js, you must provide a `parseHtml` function using JSDOM:
 ```ts
 import {JSDOM} from 'jsdom'
 import {htmlToBlocks} from '@portabletext/block-tools'
-import {Schema} from '@sanity/schema'
+import Schema from '@sanity/schema'
 ```
 
 ## Define Your Schema
 
-`htmlToBlocks` needs your block content type definition to know which marks, styles, and custom types are valid:
+`htmlToBlocks` needs a compiled Sanity block content type to know which marks, styles, and custom types are valid. Use `@sanity/schema` to compile it:
 
 ```ts
-const schema = Schema.compile({
+const defaultSchema = Schema.compile({
   name: 'mySchema',
   types: [
     {
@@ -77,7 +81,7 @@ const schema = Schema.compile({
   ],
 })
 
-const blockContentType = schema
+const blockContentType = defaultSchema
   .get('post')
   .fields.find((f) => f.name === 'body').type
 ```
@@ -226,5 +230,6 @@ Run with: `sanity migration run import-wordpress-posts --no-dry-run`
 
 ## Reference
 
-- [@portabletext/block-tools](https://www.portabletext.org)
+- [@portabletext/block-tools](https://github.com/portabletext/editor/tree/main/packages/block-tools) — part of the `portabletext/editor` monorepo
 - [Sanity Migration docs](https://www.sanity.io/docs/schema-and-content-migrations)
+- [portabletext.org](https://www.portabletext.org) — Editor docs and serializer list

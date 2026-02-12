@@ -1,244 +1,180 @@
 ---
 title: Convert Markdown to Portable Text
-description: Convert Markdown content into Portable Text blocks via HTML intermediate or direct construction
+description: Convert Markdown content into Portable Text blocks using @portabletext/markdown
 tags: [portable-text, markdown, conversion, migration, import]
 ---
 
 # Convert Markdown to Portable Text
 
-There is no direct Markdown-to-PT library. Two approaches:
-
-1. **Markdown → HTML → PT** (recommended for most cases)
-2. **Markdown → AST → PT** (for precise control)
-
-## Approach 1: Markdown → HTML → PT
-
-Convert Markdown to HTML first, then use `htmlToBlocks`:
+Use `@portabletext/markdown` for direct Markdown ↔ Portable Text conversion. This is the official library, part of the `portabletext/editor` monorepo.
 
 ```bash
-npm install @portabletext/block-tools jsdom marked
+npm install @portabletext/markdown
 ```
 
+## Basic Usage
+
 ```ts
-import {marked} from 'marked'
-import {JSDOM} from 'jsdom'
-import {htmlToBlocks} from '@portabletext/block-tools'
+import {markdownToPortableText} from '@portabletext/markdown'
 
-function markdownToPortableText(markdown: string, blockContentType) {
-  // Step 1: Markdown → HTML
-  const html = marked.parse(markdown, {gfm: true})
-
-  // Step 2: HTML → Portable Text
-  const blocks = htmlToBlocks(html, blockContentType, {
-    parseHtml: (html) => new JSDOM(html).window.document,
-  })
-
-  return blocks
-}
+const blocks = markdownToPortableText('# Hello **world**')
 ```
 
-### Handle Code Blocks
-
-Markdown fenced code blocks become `<pre><code>` in HTML. Add a custom deserializer:
-
-```ts
-const blocks = htmlToBlocks(html, blockContentType, {
-  parseHtml: (html) => new JSDOM(html).window.document,
-  rules: [
-    {
-      deserialize(el, next, block) {
-        if (
-          el.tagName?.toLowerCase() === 'pre' &&
-          el.children?.[0]?.tagName?.toLowerCase() === 'code'
-        ) {
-          const codeEl = el.children[0]
-          const language = codeEl.className?.replace('language-', '') || 'text'
-
-          return block({
-            _type: 'code',
-            language,
-            code: codeEl.textContent || '',
-          })
-        }
-        return undefined
-      },
-    },
-    // Handle inline images from markdown ![alt](url)
-    {
-      deserialize(el, next, block) {
-        if (el.tagName?.toLowerCase() !== 'img') return undefined
-        return block({
-          _type: 'image',
-          alt: el.getAttribute('alt') || '',
-          _sanityAsset: `image@${el.getAttribute('src')}`,
-        })
-      },
-    },
+Output:
+```json
+[{
+  "_type": "block",
+  "_key": "f4s8k2",
+  "style": "h1",
+  "children": [
+    {"_type": "span", "_key": "a9c3x1", "text": "Hello ", "marks": []},
+    {"_type": "span", "_key": "b7d2m5", "text": "world", "marks": ["strong"]}
   ],
+  "markDefs": []
+}]
+```
+
+## Supported Markdown Features
+
+Out of the box:
+
+- Headings (h1–h6)
+- Paragraphs
+- Bold, italic, inline code, strikethrough
+- Links
+- Blockquotes
+- Ordered and unordered lists (including nested)
+- Code blocks (fenced with language)
+- Horizontal rules
+- Images
+- Tables (GFM)
+- HTML blocks (configurable)
+
+## Custom Schema Mapping
+
+Control how Markdown elements map to your PT schema:
+
+```ts
+import {markdownToPortableText} from '@portabletext/markdown'
+import {defineSchema, compileSchema} from '@portabletext/schema'
+
+const schema = compileSchema(defineSchema({
+  styles: [{name: 'normal'}, {name: 'heading 1'}, {name: 'heading 2'}],
+  decorators: [{name: 'strong'}, {name: 'em'}],
+  annotations: [{name: 'link'}],
+  lists: [{name: 'bullet'}, {name: 'number'}],
+}))
+
+const blocks = markdownToPortableText(markdown, {
+  schema,
+  // Map Markdown heading levels to custom style names
+  block: {
+    h1: ({context}) => 'heading 1',
+    h2: ({context}) => 'heading 2',
+  },
 })
 ```
 
-## Approach 2: Markdown → AST → PT (Advanced)
+## Custom Matchers
 
-For precise control, parse Markdown to an AST and build PT blocks directly:
-
-```bash
-npm install unified remark-parse
-```
+Fine-tune how Markdown elements map to PT types:
 
 ```ts
-import {unified} from 'unified'
-import remarkParse from 'remark-parse'
+const blocks = markdownToPortableText(markdown, {
+  matchers: {
+    // Custom block matchers
+    block: {
+      // Map specific Markdown elements to PT block styles
+    },
+    // Custom mark matchers
+    marks: {
+      // Map Markdown inline elements to PT marks
+    },
+    // Custom type matchers
+    types: {
+      // Map Markdown elements to custom PT block types
+    },
+  },
+})
+```
+
+## Handling Inline HTML
+
+Configure how inline HTML in Markdown is processed:
+
+```ts
+const blocks = markdownToPortableText(markdown, {
+  html: {
+    inline: 'text', // 'text' preserves as text, 'skip' removes
+  },
+})
+```
+
+## Custom Key Generation
+
+Provide your own key generator:
+
+```ts
 import {randomKey} from '@sanity/util/content'
 
-function markdownAstToPortableText(markdown: string) {
-  const tree = unified().use(remarkParse).parse(markdown)
-  return convertNodes(tree.children)
-}
+const blocks = markdownToPortableText(markdown, {
+  keyGenerator: () => randomKey(12),
+})
+```
 
-function convertNodes(nodes) {
-  const blocks = []
+## Bidirectional: Also Converts PT → Markdown
 
-  for (const node of nodes) {
-    switch (node.type) {
-      case 'paragraph':
-        blocks.push({
-          _type: 'block',
-          _key: randomKey(12),
-          style: 'normal',
-          children: convertInline(node.children),
-          markDefs: collectMarkDefs(node.children),
-        })
-        break
+The same package provides `portableTextToMarkdown()`:
 
-      case 'heading':
-        blocks.push({
-          _type: 'block',
-          _key: randomKey(12),
-          style: `h${node.depth}`,
-          children: convertInline(node.children),
-          markDefs: collectMarkDefs(node.children),
-        })
-        break
+```ts
+import {portableTextToMarkdown} from '@portabletext/markdown'
 
-      case 'blockquote':
-        // Flatten blockquote children into blocks with blockquote style
-        for (const child of node.children) {
-          if (child.type === 'paragraph') {
-            blocks.push({
-              _type: 'block',
-              _key: randomKey(12),
-              style: 'blockquote',
-              children: convertInline(child.children),
-              markDefs: collectMarkDefs(child.children),
-            })
-          }
-        }
-        break
+const markdown = portableTextToMarkdown(blocks)
+```
 
-      case 'list':
-        blocks.push(...convertList(node))
-        break
+See the `portable-text-serialization` skill's `rules/markdown.md` for details on PT → Markdown.
 
-      case 'code':
-        blocks.push({
-          _type: 'code',
-          _key: randomKey(12),
-          language: node.lang || 'text',
-          code: node.value,
-        })
-        break
+## Migration Example
 
-      case 'thematicBreak':
-        blocks.push({_type: 'break', _key: randomKey(12), style: 'lineBreak'})
-        break
-    }
-  }
+```ts
+import {markdownToPortableText} from '@portabletext/markdown'
+import {createClient} from '@sanity/client'
+import fs from 'fs'
+import path from 'path'
+import matter from 'gray-matter'
 
-  return blocks
-}
+const client = createClient({projectId: 'xxx', dataset: 'production', token: '...'})
 
-function convertInline(nodes, marks = []) {
-  const spans = []
+// Import a directory of Markdown files
+const mdFiles = fs.readdirSync('./content').filter(f => f.endsWith('.md'))
 
-  for (const node of nodes || []) {
-    switch (node.type) {
-      case 'text':
-        spans.push({
-          _type: 'span',
-          _key: randomKey(12),
-          text: node.value,
-          marks: [...marks],
-        })
-        break
+for (const file of mdFiles) {
+  const raw = fs.readFileSync(path.join('./content', file), 'utf-8')
+  const {data: frontmatter, content} = matter(raw)
 
-      case 'strong':
-        spans.push(...convertInline(node.children, [...marks, 'strong']))
-        break
+  const body = markdownToPortableText(content)
 
-      case 'emphasis':
-        spans.push(...convertInline(node.children, [...marks, 'em']))
-        break
-
-      case 'inlineCode':
-        spans.push({
-          _type: 'span',
-          _key: randomKey(12),
-          text: node.value,
-          marks: [...marks, 'code'],
-        })
-        break
-
-      case 'link': {
-        const key = randomKey(12)
-        spans.push(...convertInline(node.children, [...marks, key]))
-        // markDef collected separately via collectMarkDefs
-        break
-      }
-    }
-  }
-
-  return spans
-}
-
-function convertList(node, level = 1) {
-  const listType = node.ordered ? 'number' : 'bullet'
-  const blocks = []
-
-  for (const item of node.children) {
-    for (const child of item.children) {
-      if (child.type === 'paragraph') {
-        blocks.push({
-          _type: 'block',
-          _key: randomKey(12),
-          style: 'normal',
-          listItem: listType,
-          level,
-          children: convertInline(child.children),
-          markDefs: collectMarkDefs(child.children),
-        })
-      } else if (child.type === 'list') {
-        blocks.push(...convertList(child, level + 1))
-      }
-    }
-  }
-
-  return blocks
+  await client.createOrReplace({
+    _id: `post-${path.basename(file, '.md')}`,
+    _type: 'post',
+    title: frontmatter.title,
+    body,
+  })
 }
 ```
 
-## When to Use Which Approach
+## When to Use htmlToBlocks Instead
 
-| Scenario | Approach |
-|----------|----------|
-| Simple migration, standard Markdown | Markdown → HTML → PT |
-| GFM tables, footnotes, custom syntax | Markdown → AST → PT |
-| Need custom block types (code, embeds) | Either, with custom rules/handlers |
-| Bulk import from CMS | Markdown → HTML → PT (simpler) |
-| Real-time conversion in app | Markdown → AST → PT (no DOM needed) |
+Use `@portabletext/block-tools` (`htmlToBlocks`) when:
+- Your source is HTML, not Markdown
+- You need custom deserializer rules for non-standard HTML elements
+- You're migrating from a CMS that exports HTML (WordPress, Contentful, etc.)
+- You need to handle complex HTML structures (tables with merged cells, nested divs, etc.)
+
+For Markdown sources, `@portabletext/markdown` is simpler and more direct.
 
 ## Reference
 
-- [marked](https://github.com/markedjs/marked)
-- [unified/remark](https://github.com/remarkjs/remark)
-- [@portabletext/block-tools](https://www.portabletext.org)
+- [@portabletext/markdown](https://github.com/portabletext/editor/tree/main/packages/markdown)
+- Part of the [portabletext/editor](https://github.com/portabletext/editor) monorepo
+- Uses [markdown-it](https://github.com/markdown-it/markdown-it) internally
