@@ -35,36 +35,66 @@ Out of the box, `portableTextToMarkdown` handles:
 - Images (`![alt](url)`)
 - Tables (GFM)
 
+## Built-in Type Renderers
+
+The library exports default renderers for common block object types. Enable them explicitly:
+
+```ts
+import {
+  portableTextToMarkdown,
+  DefaultCodeBlockRenderer,
+  DefaultImageRenderer,
+  DefaultHorizontalRuleRenderer,
+  DefaultTableRenderer,
+  DefaultHtmlRenderer,
+} from '@portabletext/markdown'
+
+const markdown = portableTextToMarkdown(blocks, {
+  types: {
+    'code': DefaultCodeBlockRenderer,           // {code, language?} → fenced code block
+    'image': DefaultImageRenderer,              // {src, alt?, title?} → ![alt](src "title")
+    'horizontal-rule': DefaultHorizontalRuleRenderer, // → ---
+    'table': DefaultTableRenderer,              // {rows, headerRows?} → GFM table
+    'html': DefaultHtmlRenderer,                // {html} → raw HTML
+  },
+})
+```
+
 ## Custom Renderers
 
 Handle custom block types and marks with renderer functions:
 
 ```ts
 const markdown = portableTextToMarkdown(blocks, {
-  // Custom block types
+  // Custom block types — receives {value, index, isInline}
   types: {
     callout: ({value}) => `> **${value.title}**\n> ${value.text}`,
-    code: ({value}) => `\`\`\`${value.language || ''}\n${value.code}\n\`\`\``,
-    image: ({value}) => `![${value.alt || ''}](${value.url})`,
+    image: ({value, isInline}) => {
+      if (isInline) return ''
+      return `![${value.alt || ''}](${value.url})`
+    },
   },
 
-  // Custom block style renderers
+  // Custom block style renderers — receives {value, children, index}
   block: {
     h1: ({children}) => `# ${children}`,
     blockquote: ({children}) => `> ${children}`,
   },
 
-  // Custom mark renderers
+  // Custom mark renderers — receives {value, children, text, markType, markKey}
   marks: {
     highlight: ({children}) => `==${children}==`,
     internalLink: ({children, value}) => `[${children}](/docs/${value.slug})`,
   },
 
-  // Custom list item renderer
+  // Custom list item renderer — receives {value, children, listIndex}
   listItem: ({children}) => children,
 
-  // Control spacing between blocks
-  blockSpacing: '\n\n',
+  // Control spacing between blocks — function, not string
+  blockSpacing: ({current, next}) => {
+    if (current.listItem && next.listItem) return '\n'
+    return undefined // use default (\n\n)
+  },
 
   // Handle unknown types gracefully
   unknownType: ({value}) => `<!-- Unknown type: ${value._type} -->`,

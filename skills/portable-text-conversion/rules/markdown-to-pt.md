@@ -52,7 +52,7 @@ Out of the box:
 
 ## Custom Schema Mapping
 
-Control how Markdown elements map to your PT schema:
+Control how Markdown elements map to your PT schema. Define a schema with `@portabletext/schema`:
 
 ```ts
 import {markdownToPortableText} from '@portabletext/markdown'
@@ -75,24 +75,48 @@ const blocks = markdownToPortableText(markdown, {
 })
 ```
 
+### Using a Sanity Studio Schema
+
+Use `@portabletext/sanity-bridge` to convert your Sanity block array schema:
+
+```ts
+import {markdownToPortableText} from '@portabletext/markdown'
+import {sanitySchemaToPortableTextSchema} from '@portabletext/sanity-bridge'
+
+// Convert a Sanity block array schema to a Portable Text schema
+const schema = sanitySchemaToPortableTextSchema(sanityBlockArraySchema)
+
+const blocks = markdownToPortableText(markdown, {schema})
+```
+
 ## Custom Matchers
 
-Fine-tune how Markdown elements map to PT types:
+Matchers are top-level options (not nested under a `matchers` key). Each receives `{context, value}` where `context.schema` lets you validate against the schema:
 
 ```ts
 const blocks = markdownToPortableText(markdown, {
-  matchers: {
-    // Custom block matchers
-    block: {
-      // Map specific Markdown elements to PT block styles
+  // Block matchers — map Markdown block elements to PT styles
+  block: {
+    h1: ({context}) => {
+      const style = context.schema.styles.find((s) => s.name === 'heading 1')
+      return style?.name // Return undefined to skip
     },
-    // Custom mark matchers
-    marks: {
-      // Map Markdown inline elements to PT marks
-    },
-    // Custom type matchers
-    types: {
-      // Map Markdown elements to custom PT block types
+  },
+  // Mark matchers — map Markdown inline elements to PT marks
+  marks: {
+    strong: ({context}) => 'strong',
+  },
+  // Type matchers — map Markdown elements to custom PT block types
+  types: {
+    table: ({context, value}) => {
+      const tableType = context.schema.blockObjects.find((obj) => obj.name === 'table')
+      if (!tableType) return undefined
+      return {
+        _type: 'table',
+        _key: context.keyGenerator(),
+        rows: value.rows,
+        headerRows: value.headerRows,
+      }
     },
   },
 })
