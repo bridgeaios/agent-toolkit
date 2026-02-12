@@ -207,4 +207,4 @@ Before writing PT blocks to Sanity, verify:
 ## Reference
 
 - [Portable Text Specification](https://github.com/portabletext/portabletext)
-- [@sanity/util/content](https://www.sanity.io/docs)
+- [@sanity/util](https://github.com/sanity-io/sanity/tree/next/packages/%40sanity/util) — provides `randomKey()` for generating `_key` values

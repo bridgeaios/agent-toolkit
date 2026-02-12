@@ -18,12 +18,17 @@ Use `@portabletext/block-tools` to parse HTML into Portable Text blocks. This is
 npm install @portabletext/block-tools jsdom @sanity/schema
 ```
 
-In Node.js, you must provide a `parseHtml` function using JSDOM:
+In Node.js, you must provide a `parseHtml` function that returns a DOM `Document`. Use JSDOM for this:
 
 ```ts
-import {JSDOM} from 'jsdom'
 import {htmlToBlocks} from '@portabletext/block-tools'
+import {JSDOM} from 'jsdom'
 import Schema from '@sanity/schema'
+
+// JSDOM is passed to htmlToBlocks via the parseHtml option:
+// htmlToBlocks(html, blockContentType, {
+//   parseHtml: (html) => new JSDOM(html).window.document,
+// })
 ```
 
 ## Define Your Schema
@@ -185,7 +190,9 @@ function preprocessHtml(rawHtml: string) {
 Don't just link external images — upload them to Sanity:
 
 ```ts
-async function uploadImage(client, url: string) {
+import type {SanityClient} from '@sanity/client'
+
+async function uploadImage(client: SanityClient, url: string) {
   const response = await fetch(url)
   const buffer = await response.arrayBuffer()
   const asset = await client.assets.upload('image', Buffer.from(buffer), {

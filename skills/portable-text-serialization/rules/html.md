@@ -82,7 +82,9 @@ const components = {
 }
 ```
 
-## With htm/vhtml (Safer)
+## With htm/vhtml (Auto-Escaped)
+
+Using `htm` + `vhtml` auto-escapes attribute values, preventing XSS from user content that could break out of attributes in raw template literals:
 
 ```ts
 const components = {
