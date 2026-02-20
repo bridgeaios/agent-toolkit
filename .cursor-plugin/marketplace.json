@@ -2,17 +2,17 @@
   "name": "sanity-agent-toolkit",
   "owner": {
     "name": "Sanity",
-    "email": "support@sanity.io",
-    "url": "https://www.sanity.io"
+    "email": "support@sanity.io"
   },
   "metadata": {
-    "description": "Official Sanity plugin for Claude Code with MCP server, agent skills, and agent rules."
+    "description": "Official Sanity plugin for Cursor with MCP server, agent skills, and agent rules.",
+    "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "sanity-plugin",
       "source": "./",
-      "description": "Official Sanity plugin for Claude Code with MCP server, agent skills, agent rules, and slash commands.",
+      "description": "Official Sanity plugin for Cursor with MCP server, agent skills, agent rules, and commands.",
       "version": "1.0.0",
       "homepage": "https://github.com/sanity-io/agent-toolkit",
       "repository": "https://github.com/sanity-io/agent-toolkit",
@@ -26,11 +26,6 @@
         "structured-content",
         "visual-editing"
       ],
-      "author": {
-        "name": "Sanity",
-        "email": "support@sanity.io",
-        "url": "https://www.sanity.io"
-      },
       "category": "cms",
       "tags": ["sanity", "cms", "groq", "structured-content", "visual-editing"]
     }

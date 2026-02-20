@@ -8,7 +8,9 @@
     "validate:sanity": "skills-ref validate ./skills/sanity-best-practices",
     "validate:content-modeling": "skills-ref validate ./skills/content-modeling-best-practices",
     "validate:seo": "skills-ref validate ./skills/seo-aeo-best-practices",
-    "validate:experimentation": "skills-ref validate ./skills/content-experimentation-best-practices"
+    "validate:experimentation": "skills-ref validate ./skills/content-experimentation-best-practices",
+    "validate:cursor-plugin": "node scripts/validate-cursor-plugin.mjs",
+    "validate:all": "npm run validate && npm run validate:cursor-plugin"
   },
   "devDependencies": {
     "skills-ref": "^0.1.5"
@@ -18,7 +20,8 @@
     "ai",
     "agent",
     "skills",
-    "claude"
+    "claude",
+    "cursor"
   ],
   "license": "MIT"
 }

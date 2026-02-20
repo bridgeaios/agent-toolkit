@@ -1,4 +1,5 @@
 ---
+name: typegen
 description: Run Sanity TypeGen and troubleshoot type generation issues.
 ---
 

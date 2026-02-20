@@ -11,10 +11,11 @@ Collection of resources to help AI agents build better with [Sanity](https://www
 
 ## Features
 
-- **Agent rules:** 20+ portable `.mdc` files covering schema design, GROQ, Visual Editing, SEO, localization, migrations, and front-end framework integrations.
-- **Agent skills:** Comprehensive best practices skills for Sanity development, content modeling, SEO/AEO, and experimentation.
 - **MCP server:** Direct access to your Sanity projects (content, datasets, releases, schemas) and agent rules.
-- **Claude Code plugin:** Slash commands and MCP integration for Claude Code users.
+- **Agent skills:** Comprehensive best practices skills for Sanity development, content modeling, SEO/AEO, and experimentation.
+- **Agent rules:** 20+ portable `.mdc` files covering schema design, GROQ, Visual Editing, SEO, localization, migrations, and front-end framework integrations.
+- **Claude Code plugin:** MCP server, agent skills, agent rules, and slash commands for [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) users.
+- **Cursor plugin:** MCP server, agent skills, agent rules, and commands for the [Cursor Marketplace](https://cursor.com/marketplace).
 
 ---
 
@@ -24,7 +25,7 @@ Choose your path based on how you want agents to work with Sanity:
 
 1. **MCP server** — Give your agent always up-to-date rules and full access to your Sanity projects. No local files to maintain. Works with Cursor, VS Code, Claude Code, Lovable, v0, and other MCP-compatible clients.
 2. **Agent skills** — Install best practices skills for Sanity, content modeling, SEO/AEO, and experimentation. Works with Cursor, Claude Code, and any [Agent Skills](https://agentskills.io)-compatible agent.
-3. **Claude Code plugin** — Adds interactive skills and slash commands on top of MCP for guided workflows.
+3. **Plugin** — Install the Sanity plugin for Cursor or Claude Code. Bundles MCP server, agent skills, agent rules, and commands.
 4. **Manual installation** — Copy rules locally for offline use. You'll need to update them yourself.
 
 ### Option 1: Install MCP server (recommended)
@@ -154,16 +155,13 @@ Install best practices skills that work with any [Agent Skills](https://agentski
 npx skills add sanity-io/agent-toolkit
 ```
 
-**Cursor:**
-1. Open **Cursor Settings** (Cmd+Shift+J / Ctrl+Shift+J)
-2. Navigate to **Rules** → **Add Rule** → **Remote Rule (Github)**
-3. Enter: `sanity-io/agent-toolkit`
+See [Option 3](#option-3-install-plugin) for plugin installation.
 
-See [Option 3](#option-3-install-claude-code-plugin) for Claude Code plugin installation.
+### Option 3: Install plugin
 
-### Option 3: Install Claude Code plugin
+Install the Sanity plugin to get MCP server, agent skills, agent rules, and commands.
 
-For Claude Code users, install the full plugin with skills and slash commands:
+#### Claude Code
 
 1. Add the Sanity marketplace:
 
@@ -187,9 +185,17 @@ You should see the Sanity skills listed.
 
 Or run `/sanity` to explore all capabilities.
 
+#### Cursor
+
+In Cursor chat, run:
+
+```
+/add-plugin sanity-plugin
+```
+
 ### Option 4: Manual installation
 
-Install the context rules locally to teach your editor Sanity best practices:
+Install the agent rules locally to teach your editor Sanity best practices:
 
 1. Create a rules directory: `mkdir -p .cursor/rules`
 2. Copy the contents of the `rules/` folder to your project's `.cursor/rules/` directory.
@@ -232,9 +238,9 @@ The onboarding guide follows three phases:
 
 Just say: "Get started with Sanity" to begin.
 
-### Context rules
+### Agent rules
 
-These files provide passive knowledge to the AI, ensuring generated code follows Sanity standards.
+Portable `.mdc` files that provide Sanity best practices to AI agents.
 
 <details>
 <summary><strong>Core fundamentals</strong></summary>
@@ -290,17 +296,24 @@ sanity-io/agent-toolkit/
 ├── README.md                      # This file
 ├── .claude-plugin/                # Claude Code plugin configuration
 │   └── marketplace.json           # Plugin metadata and marketplace config
+├── .cursor-plugin/                # Cursor plugin configuration
+│   ├── marketplace.json           # Cursor marketplace metadata
+│   └── plugin.json                # Per-plugin manifest
 ├── .mcp.json                      # MCP server configuration
-├── commands/                      # Slash commands (Claude Code)
+├── assets/                        # Plugin branding
+│   └── logo.svg                   # Sanity logo for marketplace display
+├── commands/                      # Agent commands
 │   ├── sanity.md                  # /sanity help
 │   ├── review.md                  # /review
 │   ├── typegen.md                 # /typegen
 │   └── deploy-schema.md           # /deploy-schema
-├── rules/                         # Context rules (.mdc)
+├── rules/                         # Agent rules (.mdc)
 │   ├── sanity-schema.mdc          # Schema design patterns
 │   ├── sanity-groq.mdc            # GROQ query patterns
 │   ├── sanity-nextjs.mdc          # Next.js integration
 │   └── ...                        # Additional framework rules
+├── scripts/                       # Validation and CI scripts
+│   └── validate-cursor-plugin.mjs # Cursor plugin validator
 └── skills/                        # Agent skills (agentskills.io format)
     ├── sanity-best-practices/     # Comprehensive Sanity skill
     │   ├── SKILL.md
@@ -332,7 +345,7 @@ Found a better pattern? Missing a framework or best practice?
 2. Update the relevant file:
    - **Rules:** Edit `.mdc` files in `rules/`
    - **Skills:** Edit rule files in `skills/<skill-name>/rules/`
-3. Run `npm run validate` to check skill validity.
+3. Run `npm run validate:all` to check skill validity and Cursor plugin structure.
 4. Submit a PR.
 
 ---

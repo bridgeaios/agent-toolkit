@@ -22,3 +22,6 @@ jobs:
 
       - name: Validate skills
         run: npm run validate
+
+      - name: Validate Cursor plugin
+        run: npm run validate:cursor-plugin
