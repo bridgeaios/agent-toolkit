@@ -6,13 +6,13 @@
     "url": "https://www.sanity.io"
   },
   "metadata": {
-    "description": "Official Sanity developer companion for Claude Code. Includes MCP integration, interactive skills, and expert context rules."
+    "description": "Official Sanity plugin for Claude Code with MCP server, agent skills, and agent rules."
   },
   "plugins": [
     {
       "name": "sanity-plugin",
       "source": "./",
-      "description": "Sanity developer companion for Claude Code with slash commands and skills for schema scaffolding, Visual Editing setup, GROQ optimization, TypeGen, and schema management.",
+      "description": "Official Sanity plugin for Claude Code with MCP server, agent skills, agent rules, and slash commands.",
       "version": "1.0.0",
       "homepage": "https://github.com/sanity-io/agent-toolkit",
       "repository": "https://github.com/sanity-io/agent-toolkit",
