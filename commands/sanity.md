@@ -1,4 +1,5 @@
 ---
+name: sanity
 description: Lists available Sanity skills and help topics.
 ---
 
