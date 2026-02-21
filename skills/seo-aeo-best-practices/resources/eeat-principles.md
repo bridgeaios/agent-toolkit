@@ -77,8 +77,11 @@ defineType({
     defineField({ name: 'bio', type: 'text' }),
     defineField({ name: 'credentials', type: 'array', of: [{ type: 'string' }] }),
     defineField({ name: 'image', type: 'image' }),
-    defineField({ 
-      name: 'socialLinks', 
+    defineField({ name: 'sameAs', type: 'array', of: [{ type: 'url' }],
+      description: 'Canonical profile URLs (LinkedIn, Twitter, etc.) for schema.org Person'
+    }),
+    defineField({
+      name: 'socialLinks',
       type: 'array',
       of: [{ type: 'object', fields: [
         defineField({ name: 'platform', type: 'string' }),

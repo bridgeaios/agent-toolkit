@@ -107,10 +107,44 @@ const productSchema: WithContext<Product> = {
 }
 ```
 
+### Breadcrumb
+
+```typescript
+import { BreadcrumbList, WithContext } from 'schema-dts'
+
+const breadcrumbSchema: WithContext<BreadcrumbList> = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: breadcrumbs.map((crumb, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: crumb.title,
+    item: `https://example.com${crumb.path}`
+  }))
+}
+```
+
+## Combining Multiple Schemas (@graph)
+
+Real-world pages often need multiple schema types. Use `@graph` to combine them:
+
+```typescript
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    generateArticleSchema(post),
+    generateBreadcrumbSchema(breadcrumbs),
+    generateOrganizationSchema(),
+  ]
+}
+```
+
 ## Implementation in Next.js
 
 ```typescript
 // Component to render JSON-LD
+// Note: Ensure data comes from trusted sources (your CMS).
+// If data could contain user-generated content, sanitize it first.
 function JsonLd({ data }: { data: WithContext<Thing> }) {
   return (
     <script
