@@ -47,8 +47,8 @@ your-project/
 │           ├── objects/
 │           └── blocks/
 ├── sanity.config.ts
-├── sanity.cli.ts
-└── sanity-typegen.json
+├── sanity.cli.ts               # CLI + TypeGen configuration
+└── sanity.types.ts             # Generated types (from TypeGen)
 ```
 
 ## Monorepo
@@ -76,14 +76,13 @@ your-project/
 │       │       ├── live.ts
 │       │       └── queries.ts
 │       └── package.json
-├── sanity-typegen.json
 ├── pnpm-workspace.yaml
 └── package.json
 ```
 
 **Setup:**
 1. Add web app URL to CORS origins in Sanity project settings
-2. Configure `sanity-typegen.json` to read schema from `apps/studio` and output types to `apps/web`
+2. Configure `typegen` in `sanity.cli.ts` to read schema from `apps/studio` and output types to `apps/web`
 
 ## File Naming Conventions
 
@@ -114,6 +113,5 @@ schemaTypes/
 | File | Purpose |
 |------|---------|
 | `sanity.config.ts` | Studio configuration (plugins, schema, structure) |
-| `sanity.cli.ts` | CLI configuration (project ID, dataset) |
-| `sanity-typegen.json` | TypeGen configuration |
+| `sanity.cli.ts` | CLI configuration (project ID, dataset, TypeGen config) |
 | `structure.ts` | Custom desk structure |

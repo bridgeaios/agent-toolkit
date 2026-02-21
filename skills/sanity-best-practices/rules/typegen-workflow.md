@@ -6,45 +6,78 @@ tags: typegen, typescript, workflow, types
 
 ## TypeGen Update Workflow
 
-TypeGen works in a cycle: Extract schema → Generate types. Run this whenever schema or queries change.
+TypeGen generates types from your schema and GROQ queries. Enable automatic generation or run manually.
 
-### Setup
+### Automatic Generation (Recommended)
 
-**package.json:**
+Enable in `sanity.cli.ts` — types regenerate during `sanity dev` and `sanity build`:
+
+```typescript
+// sanity.cli.ts
+import { defineCliConfig } from 'sanity/cli'
+
+export default defineCliConfig({
+  typegen: {
+    enabled: true,
+  },
+})
+```
+
+For separate frontend repos, use watch mode: `sanity typegen generate --watch`
+
+### Manual Generation
+
 ```json
 {
   "scripts": {
-    "typegen": "sanity schema extract --path=./schema.json && sanity typegen generate"
+    "typegen": "sanity schema extract && sanity typegen generate"
   }
 }
 ```
 
-**sanity-typegen.json:**
-```json
-{
-  "path": "./src/**/*.{ts,tsx,js,jsx}",
-  "schema": "./schema.json",
-  "generates": "./src/sanity/sanity.types.ts"
-}
+### Configuration
+
+> **Note:** `sanity-typegen.json` is deprecated. Configure TypeGen in `sanity.cli.ts` instead.
+
+```typescript
+// sanity.cli.ts
+import { defineCliConfig } from 'sanity/cli'
+
+export default defineCliConfig({
+  typegen: {
+    enabled: true,
+    path: "./src/**/*.{ts,tsx,js,jsx}",
+    schema: "schema.json",
+    generates: "./sanity.types.ts",
+    overloadClientMethods: true, // Auto-type client.fetch() calls
+  },
+})
 ```
 
 ### Workflow
 
 1. Modify schema (`schemaTypes/...`)
-2. Modify queries (files with `defineQuery`)
-3. Run `npm run typegen`
+2. Modify queries (files with `defineQuery` or `groq`)
+3. If not using automatic generation, run `npm run typegen`
 4. Restart TS Server if types don't update
 
 ### Usage
 
-```typescript
-import { defineQuery } from "next-sanity";
+With `overloadClientMethods: true` (default), `client.fetch()` returns typed results automatically:
 
-// Query name determines type name
+```typescript
+import { defineQuery } from "groq";
+
 const POST_QUERY = defineQuery(`*[_type == "post"]{ title, slug }`)
 
-// Generated type: POST_QUERYResult
-import type { POST_QUERYResult } from "@/sanity/types"
+// Return type is inferred automatically — no manual type import needed!
+const posts = await client.fetch(POST_QUERY)
+```
+
+Or import generated types directly:
+
+```typescript
+import type { POST_QUERYResult } from "./sanity.types"
 
 function PostList({ posts }: { posts: POST_QUERYResult }) {
   // Fully typed!
