@@ -2,7 +2,8 @@
   "name": "sanity-agent-toolkit",
   "owner": {
     "name": "Sanity",
-    "email": "support@sanity.io"
+    "email": "support@sanity.io",
+    "url": "https://www.sanity.io"
   },
   "metadata": {
     "description": "Official Sanity plugin for Cursor with MCP server, agent skills, and agent rules.",

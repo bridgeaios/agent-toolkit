@@ -30,7 +30,7 @@ Reference these guidelines when:
 ## Resources
 
 See `resources/` for detailed guidance on specific topics:
-- Separation of content and presentation
-- Reference vs embedding strategies
-- Content reuse patterns
-- Taxonomy and classification
+- `resources/separation-of-concerns.md` — Separating content from presentation
+- `resources/reference-vs-embedding.md` — When to use references vs embedded objects
+- `resources/content-reuse.md` — Content reuse patterns and the reuse spectrum
+- `resources/taxonomy-classification.md` — Flat, hierarchical, and faceted classification

@@ -6,7 +6,8 @@
     "url": "https://www.sanity.io"
   },
   "metadata": {
-    "description": "Official Sanity plugin for Claude Code with MCP server, agent skills, and agent rules."
+    "description": "Official Sanity plugin for Claude Code with MCP server, agent skills, and agent rules.",
+    "version": "1.0.0"
   },
   "plugins": [
     {
