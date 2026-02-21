@@ -46,7 +46,7 @@ import { defineCliConfig } from 'sanity/cli'
 export default defineCliConfig({
   typegen: {
     enabled: true,
-    path: "./src/**/*.{ts,tsx,js,jsx}",
+    path: "./src/**/*.{ts,tsx,js,jsx,astro,svelte,vue}",
     schema: "schema.json",
     generates: "./sanity.types.ts",
     overloadClientMethods: true, // Auto-type client.fetch() calls

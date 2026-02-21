@@ -26,11 +26,12 @@ import { defineQuery } from "groq";
 // TypeGen generates POST_QUERYResult type automatically
 const POST_QUERY = defineQuery(`*[_type == "post"]{ title, slug }`)
 
-// After running `npm run typegen`:
-import type { POST_QUERYResult } from "@/sanity/types"
+// With overloadClientMethods (default), types are inferred automatically:
+const posts = await client.fetch(POST_QUERY)
+// posts is fully typed — no manual type import needed!
 
-const posts: POST_QUERYResult = await client.fetch(POST_QUERY)
-// posts is fully typed!
+// Or import types explicitly:
+import type { POST_QUERYResult } from "@/sanity.types"
 ```
 
 ### Syntax Highlighting

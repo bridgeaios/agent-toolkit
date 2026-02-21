@@ -83,7 +83,7 @@ import { defineCliConfig } from 'sanity/cli'
 export default defineCliConfig({
   typegen: {
     enabled: true, // Auto-generate during sanity dev/build
-    path: "./src/**/*.{ts,tsx,js,jsx}", // Glob to find queries
+    path: "./src/**/*.{ts,tsx,js,jsx,astro,svelte,vue}", // Glob to find queries
     schema: "schema.json", // Schema file from extract
     generates: "./sanity.types.ts", // Output file
     overloadClientMethods: true, // Auto-type client.fetch() calls
@@ -135,7 +135,7 @@ import { defineQuery } from "groq";
 // Next.js re-exports defineQuery for convenience:
 // import { defineQuery } from "next-sanity";
 
-const AUTHOR_QUERY = defineQuery(`*[_type == "author"]{ name, bio }`);
+const AUTHOR_QUERY = defineQuery(`*[_type == "author" && slug.current == $slug][0]{ name, bio }`);
 
 import type { AUTHOR_QUERYResult } from "@/sanity.types";
 
@@ -168,6 +168,19 @@ type HeroSection = Get<Page, 'sections', number, 'hero'>
 type HeroBlock = FilterByType<PageBuilder, 'hero'>
 ```
 
+### Unique Query Names
+All queries must have unique variable names. Duplicate names across files will cause TypeGen to silently overwrite types. Use descriptive, scoped names:
+
+```typescript
+// ✅ Unique names
+const POSTS_INDEX_QUERY = defineQuery(`*[_type == "post"]{ title }`)
+const POST_DETAIL_QUERY = defineQuery(`*[_type == "post" && slug.current == $slug][0]`)
+
+// ❌ Duplicate names will conflict
+const QUERY = defineQuery(`*[_type == "post"]`)  // file-a.ts
+const QUERY = defineQuery(`*[_type == "author"]`) // file-b.ts — overwrites!
+```
+
 ### Supported Query Formats
 Queries must be assigned to a variable using `groq` or `defineQuery`:
 
@@ -184,6 +197,15 @@ await client.fetch(groq`*[_type == "post"]`)
 
 ### Supported File Types
 TypeGen parses queries from: `.ts`, `.tsx`, `.js`, `.jsx`, `.astro`, `.svelte`, `.vue`
+
+### tsconfig Requirements
+Ensure `sanity.types.ts` is included in your `tsconfig.json`'s `include` array. If your config restricts includes (e.g., `["src/**/*"]`) and the types file is at the project root, TypeScript won't pick up the generated types:
+
+```json
+{
+  "include": ["src/**/*", "sanity.types.ts"]
+}
+```
 
 ### Skipping Individual Queries
 Add `@sanity-typegen-ignore` in a comment before a query to skip type generation:

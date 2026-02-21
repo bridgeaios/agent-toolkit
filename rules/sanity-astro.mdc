@@ -48,8 +48,10 @@ Use `sanityClient` from `sanity:client` in the frontmatter of your `.astro` file
 import { sanityClient } from "sanity:client";
 import type { SanityDocument } from "@sanity/client";
 
-const POSTS_QUERY = `*[_type == "post"]{title, slug}`;
-const posts = await sanityClient.fetch<SanityDocument[]>(POSTS_QUERY);
+import { defineQuery } from "groq";
+
+const POSTS_QUERY = defineQuery(`*[_type == "post"]{title, slug}`);
+const posts = await sanityClient.fetch(POSTS_QUERY);
 ---
 <ul>
   {posts.map(post => <li>{post.title}</li>)}
@@ -61,12 +63,12 @@ It's best practice to abstract queries into a utility file (e.g., `src/utils/san
 
 ```typescript
 import { sanityClient } from "sanity:client";
-import groq from "groq";
+import { defineQuery } from "groq";
+
+const POSTS_QUERY = defineQuery(`*[_type == "post" && defined(slug.current)]`);
 
 export async function getPosts() {
-  return await sanityClient.fetch(
-    groq`*[_type == "post" && defined(slug.current)]`
-  );
+  return await sanityClient.fetch(POSTS_QUERY);
 }
 ```
 

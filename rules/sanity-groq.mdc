@@ -89,7 +89,7 @@ const pageBuilderExpansion = /* groq */ `
 ## 4. Maintenance Workflow
 When you add a new field or component to the Schema:
 1.  **Update the Query:** Add the new field/expansion to the relevant GROQ query immediately.
-2.  **Run TypeGen:** Execute `npm run typegen` (or `update-types`) to regenerate TypeScript interfaces.
+2.  **Run TypeGen:** If you have `typegen.enabled: true` in `sanity.cli.ts`, types regenerate automatically during `sanity dev`/`sanity build`. Otherwise, run `npm run typegen` manually.
 3.  **Verify:** Ensure the new field is available in the generated types.
 
 ## 5. Common Patterns
