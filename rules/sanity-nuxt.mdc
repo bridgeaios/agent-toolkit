@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   sanity: {
     projectId: process.env.NUXT_SANITY_PROJECT_ID,
     dataset: process.env.NUXT_SANITY_DATASET,
-    apiVersion: "2024-04-01",
+    apiVersion: "2026-02-01",
     // Live Visual Editing Configuration
     visualEditing: {
       studioUrl: process.env.NUXT_SANITY_STUDIO_URL,

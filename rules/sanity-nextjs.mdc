@@ -39,8 +39,8 @@ import { defineLive } from 'next-sanity'
 import { client } from './client'
 
 export const { sanityFetch, SanityLive } = defineLive({ 
-  client: client.withConfig({ 
-    apiVersion: 'v2024-08-01' 
+  client: client.withConfig({
+    apiVersion: '2026-02-01'
   }),
   serverToken: process.env.SANITY_API_READ_TOKEN,
   browserToken: process.env.SANITY_API_READ_TOKEN,
@@ -188,6 +188,11 @@ export async function POST(req: NextRequest) {
     }
     if (!body?.path) {
       return new Response('Missing path', { status: 400 });
+    }
+
+    // Validate path to prevent cache-busting abuse
+    if (!body.path.startsWith('/') || body.path.includes('..')) {
+      return new Response('Invalid path', { status: 400 });
     }
 
     revalidatePath(body.path);
