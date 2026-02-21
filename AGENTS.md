@@ -69,23 +69,65 @@ Example: If asked to "create a blog post schema", read `rules/sanity-schema.mdc`
 
 ## MCP Server (Preferred for Content Operations)
 
-**ALWAYS** use MCP tools instead of writing scripts:
+**Prefer** MCP tools over writing scripts for content operations:
+
+**Content Operations:**
 
 | Tool | Use For |
 |------|---------|
 | `query_documents` | Run GROQ queries |
-| `create_document_from_markdown` | Create content from markdown |
-| `patch_document` | Modify existing documents |
-| `deploy_schema` | Deploy schema to Content Lake |
-| `get_schema` | Inspect deployed schema |
-| `transform_image` | Edit images with AI |
+| `get_document` | Fetch a single document by exact ID |
+| `create_documents_from_json` | Create draft documents from JSON |
+| `create_documents_from_markdown` | Create draft documents from markdown |
+| `patch_document_from_json` | Apply precise modifications to document fields |
+| `patch_document_from_markdown` | Patch a field using markdown content |
+| `publish_documents` | Publish one or more drafts |
+| `unpublish_documents` | Unpublish documents (move back to drafts) |
+| `discard_drafts` | Discard drafts while keeping published documents |
+
+**Schema & Development:**
+
+| Tool | Use For |
+|------|---------|
+| `get_schema` | Get full schema of the current workspace |
+| `list_workspace_schemas` | List all available workspace schema names |
+| `deploy_schema` | Deploy schema types to the cloud |
+| `search_docs` / `read_docs` | Search and read Sanity documentation |
+| `list_sanity_rules` / `get_sanity_rules` | Load best-practice development rules |
+| `migration_guide` | Get guides for migrating from other CMSs |
+
+**Media & AI:**
+
+| Tool | Use For |
+|------|---------|
+| `generate_image` | AI image generation for a document field |
+| `transform_image` | AI transformation of an existing image |
+
+**Releases:**
+
+| Tool | Use For |
+|------|---------|
+| `create_version` | Create a version document for a release |
+| `version_replace_document` | Replace version contents from another document |
+| `version_discard` | Discard document versions from a release |
+| `version_unpublish_document` | Mark document to be unpublished when release runs |
+
+**Project Management:**
+
+| Tool | Use For |
+|------|---------|
+| `list_projects` / `list_organizations` | List projects and organizations |
+| `create_project` | Create a new Sanity project |
+| `list_datasets` / `create_dataset` / `update_dataset` | Manage datasets |
+| `add_cors_origin` | Add CORS origins for client-side requests |
+| `list_embeddings_indices` / `semantic_search` | Semantic search on embeddings |
 
 **Critical:** After schema changes, deploy with `deploy_schema` before using content tools.
 
 ## Boundaries
 - **Always:**
   - Use `defineQuery` for all GROQ queries.
-  - Use MCP tools for content operations (query, create, update, patch).
+  - Prefer MCP tools for content operations (query, create, update, patch). For bulk migrations or when MCP is unavailable, NDJSON scripts are a valid alternative.
   - Run `deploy_schema` after schema changes — required before using content tools. If a local Studio exists, update schema files first to keep them in sync with the deployed schema.
   - Follow the "Deprecation Pattern" when removing fields (ReadOnly -> Hidden -> Deprecated).
   - Run `npm run typegen` after schema or query changes.
@@ -95,4 +137,3 @@ Example: If asked to "create a blog post schema", read `rules/sanity-schema.mdc`
 - **Never:**
   - Hardcode API tokens (use `process.env`).
   - Use loose types (`any`) for Sanity content.
-  - Generate NDJSON import scripts for simple content tasks (use MCP).

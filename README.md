@@ -209,10 +209,13 @@ Install the agent rules locally to teach your editor Sanity best practices:
 
 With MCP connected, your AI can use tools like:
 - `query_documents` — run GROQ queries directly
-- `create_project` — create a new Sanity project
-- `create_documents_from_markdown` — map markdown to Sanity documents
-- `patch_document_from_json` — surgical edits to existing documents
-- `transform_image` — edit images with AI
+- `create_documents_from_json` / `create_documents_from_markdown` — create draft documents
+- `patch_document_from_json` / `patch_document_from_markdown` — surgical edits to existing documents
+- `publish_documents` / `unpublish_documents` — manage document lifecycle
+- `deploy_schema` / `get_schema` — deploy and inspect schemas
+- `create_version` — create version documents for releases
+- `generate_image` / `transform_image` — AI image generation and editing
+- `search_docs` / `read_docs` — search and read Sanity documentation
 - `list_sanity_rules` / `get_sanity_rules` — load agent rules on demand
 
 See the [full list of available tools](https://www.sanity.io/docs/compute-and-ai/mcp-server#k4ae680bb2e88).
