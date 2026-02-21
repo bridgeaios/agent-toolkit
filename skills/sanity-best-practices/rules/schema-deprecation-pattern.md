@@ -59,9 +59,9 @@ import {defineMigration, at, setIfMissing, unset} from 'sanity/migrate'
 export default defineMigration({
   title: 'Rename oldTitle to newTitle',
   documentTypes: ['article'],
-  filter: 'defined(oldTitle) && !defined(newTitle)',
   migrate: {
     document(doc) {
+      if (!doc.oldTitle || doc.newTitle) return // Skip if already migrated
       return [
         at('newTitle', setIfMissing(doc.oldTitle)),
         at('oldTitle', unset())

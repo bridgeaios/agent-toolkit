@@ -24,7 +24,7 @@ TypeGen works in a cycle: Extract schema → Generate types. Run this whenever s
 {
   "path": "./src/**/*.{ts,tsx,js,jsx}",
   "schema": "./schema.json",
-  "generates": "./src/sanity/types.ts"
+  "generates": "./src/sanity/sanity.types.ts"
 }
 ```
 

@@ -63,7 +63,8 @@ const components: PortableTextComponents = {
   },
 };
 
-export function Content({ value }: { value: any }) {
+// Use generated types from sanity.types.ts for full type safety
+export function Content({ value }: { value: PortableTextBlock[] }) {
   return <PortableText value={value} components={components} />;
 }
 ```
