@@ -46,8 +46,6 @@ Use `sanityClient` from `sanity:client` in the frontmatter of your `.astro` file
 ```astro
 ---
 import { sanityClient } from "sanity:client";
-import type { SanityDocument } from "@sanity/client";
-
 import { defineQuery } from "groq";
 
 const POSTS_QUERY = defineQuery(`*[_type == "post"]{title, slug}`);

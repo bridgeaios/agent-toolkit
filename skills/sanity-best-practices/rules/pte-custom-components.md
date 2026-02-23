@@ -22,7 +22,7 @@ export function Content({ value }) {
 **Correct (with typed components):**
 
 ```typescript
-import { PortableText, PortableTextComponents } from "next-sanity";
+import { PortableText, PortableTextBlock, PortableTextComponents } from "next-sanity";
 
 const components: PortableTextComponents = {
   // 1. Block styles (paragraphs, headings)

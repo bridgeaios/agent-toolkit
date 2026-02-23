@@ -190,11 +190,6 @@ export async function POST(req: NextRequest) {
       return new Response('Missing path', { status: 400 });
     }
 
-    // Validate path to prevent cache-busting abuse
-    if (!body.path.startsWith('/') || body.path.includes('..')) {
-      return new Response('Invalid path', { status: 400 });
-    }
-
     revalidatePath(body.path);
     return NextResponse.json({ revalidated: body.path });
   } catch (err) {

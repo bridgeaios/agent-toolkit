@@ -96,13 +96,13 @@ export default defineCliConfig({
 **Single Repo / Embedded Studio (most common):**
 Use defaults — no extra config needed.
 
-**Monorepo** (Studio in `/studio`, Frontend in `/app`):
+**Monorepo** (Studio in `apps/studio`, Frontend in `apps/web`):
 ```typescript
 export default defineCliConfig({
   typegen: {
-    path: "../../app/src/**/*.{ts,tsx,js,jsx}",
-    schema: "../../app/sanity-schemas.json",
-    generates: "../../app/sanity.types.ts",
+    path: "../web/src/**/*.{ts,tsx,js,jsx}",
+    schema: "schema.json",
+    generates: "../web/sanity.types.ts",
   },
 })
 ```
