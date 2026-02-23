@@ -22,7 +22,7 @@ export function Content({ value }) {
 **Correct (with typed components):**
 
 ```typescript
-import { PortableText, PortableTextComponents } from "next-sanity";
+import { PortableText, PortableTextBlock, PortableTextComponents } from "next-sanity";
 
 const components: PortableTextComponents = {
   // 1. Block styles (paragraphs, headings)
@@ -63,7 +63,8 @@ const components: PortableTextComponents = {
   },
 };
 
-export function Content({ value }: { value: any }) {
+// Use generated types from sanity.types.ts for full type safety
+export function Content({ value }: { value: PortableTextBlock[] }) {
   return <PortableText value={value} components={components} />;
 }
 ```

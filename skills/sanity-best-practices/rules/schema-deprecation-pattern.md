@@ -62,6 +62,7 @@ export default defineMigration({
   filter: 'defined(oldTitle) && !defined(newTitle)',
   migrate: {
     document(doc) {
+      if (!doc.oldTitle || doc.newTitle) return // Skip if already migrated
       return [
         at('newTitle', setIfMissing(doc.oldTitle)),
         at('oldTitle', unset())

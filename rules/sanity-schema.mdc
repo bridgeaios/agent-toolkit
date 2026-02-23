@@ -295,7 +295,7 @@ defineField({
   validation: (rule) => rule.required().custom(async (slug, context) => {
     if (!slug?.current) return true
     
-    const client = context.getClient({ apiVersion: '2024-01-01' })
+    const client = context.getClient({ apiVersion: '2026-02-01' })
     const id = context.document?._id?.replace(/^drafts\./, '')
     
     const existing = await client.fetch(

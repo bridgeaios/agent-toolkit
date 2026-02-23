@@ -13,7 +13,7 @@
     "validate:all": "npm run validate && npm run validate:cursor-plugin"
   },
   "devDependencies": {
-    "skills-ref": "^0.1.5"
+    "skills-ref": "0.1.5"
   },
   "keywords": [
     "sanity",

@@ -214,8 +214,8 @@ import { createClient } from "@sanity/client";
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
-  apiVersion: "2024-01-01",
-  useCdn: false,
+  apiVersion: "2026-02-01", // Use current date for new projects
+  useCdn: false, // Use API directly for server-side rendering; set true for client-side reads
 });
 ```
 
@@ -224,7 +224,9 @@ export const client = createClient({
 // app/posts/page.tsx
 import { client } from "@/sanity/client";
 
-const POSTS_QUERY = `*[_type == "post"]{ _id, title, slug }`;
+import { defineQuery } from "groq";
+
+const POSTS_QUERY = defineQuery(`*[_type == "post"]{ _id, title, slug }`);
 
 export default async function PostsPage() {
   const posts = await client.fetch(POSTS_QUERY);

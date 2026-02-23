@@ -89,7 +89,7 @@ const pageBuilderExpansion = /* groq */ `
 ## 4. Maintenance Workflow
 When you add a new field or component to the Schema:
 1.  **Update the Query:** Add the new field/expansion to the relevant GROQ query immediately.
-2.  **Run TypeGen:** Execute `npm run typegen` (or `update-types`) to regenerate TypeScript interfaces.
+2.  **Run TypeGen:** If you have `typegen.enabled: true` in `sanity.cli.ts`, types regenerate automatically during `sanity dev`/`sanity build`. Otherwise, run `npm run typegen` manually.
 3.  **Verify:** Ensure the new field is available in the generated types.
 
 ## 5. Common Patterns
@@ -257,7 +257,7 @@ Computed attributes can't use indexes:
 |------|-----|
 | Always project `{ fields }` | Reduces data returned |
 | Use `defined()` checks | Filters use indexes |
-| Use `$params` not interpolation | Security + caching |
+| Use `$params` not interpolation | Prevents query manipulation + enables caching |
 | Order BEFORE slice | `order()[0...N]` not `[0...N] order()` |
 | Use `_ref` not `->field` in filters | Avoids expensive joins |
 | Merge repeated `->` calls | Single subquery vs many |
@@ -269,10 +269,10 @@ Always use dated versions (`YYYY-MM-DD`) for consistent behavior:
 
 ```typescript
 const client = createClient({
-  apiVersion: '2025-11-01', // Use current year-month for new projects
+  apiVersion: '2026-02-01', // Use current date for new projects
 })
 ```
 
-- **New projects:** Use current date (e.g., `2025-11-01`)
+- **New projects:** Use current date (e.g., `2026-02-01`)
 - **Existing projects:** Keep current version unless you need new features
 - Dated versions lock behavior; `v1` or `vX` may change unexpectedly

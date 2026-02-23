@@ -35,7 +35,7 @@ Google's framework for evaluating content quality.
 ## Resources
 
 See `resources/` for detailed guidance:
-- EEAT implementation
-- Structured data patterns
-- Technical SEO checklist
-- AI/AEO considerations
+- `resources/eeat-principles.md` — EEAT implementation and author schema
+- `resources/structured-data.md` — JSON-LD patterns (Article, FAQ, Breadcrumb, Product)
+- `resources/technical-seo.md` — Technical SEO checklist (metadata, sitemaps, hreflang, robots.txt)
+- `resources/aeo-considerations.md` — AI/AEO considerations (AI Overviews, crawler management)

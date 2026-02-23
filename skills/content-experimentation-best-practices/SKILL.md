@@ -37,7 +37,7 @@ Making decisions based on data rather than opinions (HiPPO avoidance).
 ## Resources
 
 See `resources/` for detailed guidance:
-- Experiment design principles
-- Statistical foundations
-- CMS integration patterns
-- Common pitfalls
+- `resources/experiment-design.md` — Hypothesis framework, metrics, sample size, and what to test
+- `resources/statistical-foundations.md` — p-values, confidence intervals, power analysis, Bayesian methods
+- `resources/cms-integration.md` — CMS-managed variants, field-level variants, external platforms
+- `resources/common-pitfalls.md` — 17 common mistakes across statistics, design, execution, and interpretation
