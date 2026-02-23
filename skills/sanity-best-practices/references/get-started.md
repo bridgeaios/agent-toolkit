@@ -1,7 +1,13 @@
 ---
+title: Sanity Getting Started Guide
 description: Use these rules when users ask to 'Get started with Sanity' or need help setting up a new Sanity project.
 globs: sanity.config.ts, sanity.cli.ts, package.json
-alwaysApply: false
+tags:
+  - getting-started
+  - setup
+  - studio
+  - mcp
+  - onboarding
 ---
 
 # Sanity Getting Started Guide
@@ -68,7 +74,7 @@ Resume from where they left off.
 **If NO schema found:**
 - Ask: "What kind of content are you building? (e.g., Blog, E-commerce, Portfolio)"
 - Create appropriate schema types based on their answer
-- See `rules/sanity-schema.mdc` for patterns
+- See `schema.md` for patterns
 
 **If schema exists:**
 - Show them what you found
@@ -126,7 +132,7 @@ This uploads your schema to the Content Lake so MCP tools can work with it.
 ### Step 2a: Import Existing Content
 
 If migrating from another CMS or files:
-- See `rules/sanity-migration.mdc`
+- See `migration.md`
 - Use MCP `migrate_content` tool for guidance
 
 ### Step 2b: Generate Sample Content (MCP)
@@ -188,11 +194,11 @@ claude mcp add Sanity -t http https://mcp.sanity.io --scope user
 
 | Dependency | Framework | Rule File |
 |------------|-----------|-----------|
-| `next` | Next.js | `rules/sanity-nextjs.mdc` |
-| `@remix-run/react` or `react-router` | React Router / Remix | `rules/sanity-remix.mdc` |
-| `svelte` or `@sveltejs/kit` | SvelteKit | `rules/sanity-svelte.mdc` |
-| `nuxt` | Nuxt | `rules/sanity-nuxt.mdc` |
-| `astro` | Astro | `rules/sanity-astro.mdc` |
+| `next` | Next.js | `nextjs.md` |
+| `@remix-run/react` or `react-router` | React Router / Remix | `remix.md` |
+| `svelte` or `@sveltejs/kit` | SvelteKit | `svelte.md` |
+| `nuxt` | Nuxt | `nuxt.md` |
+| `astro` | Astro | `astro.md` |
 
 **If NO framework found:**
 - Ask: "Which framework are you using, or would you like to create a new app?"
@@ -249,16 +255,16 @@ NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
 NEXT_PUBLIC_SANITY_DATASET=production
 ```
 
-For advanced patterns (TypeGen, Visual Editing, `defineLive`), see `rules/sanity-nextjs.mdc`.
+For advanced patterns (TypeGen, Visual Editing, `defineLive`), see `nextjs.md`.
 
 ### Step 3: Other Frameworks
 
 For non-Next.js frameworks, read the corresponding rule file and follow its integration guide:
 
-- **React Router / Remix:** `rules/sanity-remix.mdc`
-- **SvelteKit:** `rules/sanity-svelte.mdc`
-- **Nuxt:** `rules/sanity-nuxt.mdc`
-- **Astro:** `rules/sanity-astro.mdc`
+- **React Router / Remix:** `remix.md`
+- **SvelteKit:** `svelte.md`
+- **Nuxt:** `nuxt.md`
+- **Astro:** `astro.md`
 
 Each rule file contains framework-specific patterns for data fetching, Portable Text rendering, and Visual Editing.
 
@@ -270,11 +276,11 @@ Once setup is complete, let the user know:
 
 "You're all set! Here are some things I can help with:
 
-- **Visual Editing** — Click-to-edit in the Presentation tool (`rules/sanity-visual-editing.mdc`)
-- **TypeGen** — Type-safe queries with generated types (`rules/sanity-typegen.mdc`)
-- **Studio Structure** — Customize the Studio sidebar (`rules/sanity-studio-structure.mdc`)
-- **SEO** — Metadata, sitemaps, and Open Graph (`rules/sanity-seo.mdc`)
-- **i18n** — Multi-language content (`rules/sanity-localization.mdc`)
+- **Visual Editing** — Click-to-edit in the Presentation tool (`visual-editing.md`)
+- **TypeGen** — Type-safe queries with generated types (`typegen.md`)
+- **Studio Structure** — Customize the Studio sidebar (`studio-structure.md`)
+- **SEO** — Metadata, sitemaps, and Open Graph (`seo.md`)
+- **i18n** — Multi-language content (`localization.md`)
 
 Just ask about any of these!"
 

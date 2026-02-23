@@ -1,7 +1,13 @@
 ---
+title: Sanity Schema Best Practices
 description: Rules for defining Sanity Content Models (Schemas), including field definitions, strict typing, and validation patterns.
 globs: schemaTypes/**/*.ts, sanity.config.ts
-alwaysApply: false
+tags:
+  - schema
+  - content-model
+  - validation
+  - fields
+  - types
 ---
 
 # Sanity Schema Best Practices
@@ -117,7 +123,7 @@ defineField({
 defineField({
   name: 'internalLink',
   type: 'reference',
-  hidden: ({ parent }) => parent?.linkType !== 'internal' 
+  hidden: ({ parent }) => parent?.linkType !== 'internal'
 }),
 defineField({
   name: 'externalUrl',
@@ -294,15 +300,15 @@ defineField({
   type: 'slug',
   validation: (rule) => rule.required().custom(async (slug, context) => {
     if (!slug?.current) return true
-    
+
     const client = context.getClient({ apiVersion: '2026-02-01' })
     const id = context.document?._id?.replace(/^drafts\./, '')
-    
+
     const existing = await client.fetch(
       `count(*[_type == "post" && slug.current == $slug && _id != $id])`,
       { slug: slug.current, id }
     )
-    
+
     return existing === 0 || 'Slug already exists'
   })
 })

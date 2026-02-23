@@ -1,7 +1,13 @@
 ---
+title: Sanity Blueprints
 description: Rules for Sanity Blueprints, the Infrastructure as Code solution for managing Sanity resources declaratively.
 globs: sanity.blueprint.ts, sanity.blueprint.json
-alwaysApply: false
+tags:
+  - blueprints
+  - infrastructure-as-code
+  - iac
+  - deployment
+  - resources
 ---
 
 # Sanity Blueprints

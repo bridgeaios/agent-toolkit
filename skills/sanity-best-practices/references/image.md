@@ -1,7 +1,13 @@
 ---
+title: "Sanity Image Rules"
 description: Best practices for handling images in Sanity: Schema, URL generation, and Next.js Image integration.
-globs: **/*.tsx, **/*.ts
-alwaysApply: false
+globs: "**/*.tsx, **/*.ts"
+tags:
+  - image
+  - next-image
+  - url-builder
+  - hotspot
+  - lqip
 ---
 
 # Sanity Image Rules
@@ -14,8 +20,8 @@ defineField({
   name: 'mainImage',
   title: 'Main Image',
   type: 'image',
-  options: { 
-    hotspot: true // 👈 CRITICAL
+  options: {
+    hotspot: true // CRITICAL
   },
   fields: [
     defineField({

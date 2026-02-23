@@ -1,7 +1,13 @@
 ---
+title: React Router (Remix) & Sanity Integration Rules
 description: Integration guide for React Router (formerly Remix) with Sanity, including Loaders and Visual Editing.
 globs: app/routes/**/*.tsx, app/sanity/**/*.ts, remix.config.js, react-router.config.ts, root.tsx
-alwaysApply: false
+tags:
+  - remix
+  - react-router
+  - loaders
+  - visual-editing
+  - data-fetching
 ---
 
 # React Router (Remix) & Sanity Integration Rules
@@ -70,7 +76,7 @@ Use `loadQuery` from your **server** file in route loaders.
 ```typescript
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { loadQuery } from "~/sanity/loader.server"; 
+import { loadQuery } from "~/sanity/loader.server";
 import { POSTS_QUERY } from "~/sanity/queries";
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -94,7 +100,7 @@ import { useQuery } from "~/sanity/loader";
 
 export default function Page() {
   const { initial, query, params } = useLoaderData<typeof loader>();
-  
+
   const { data, encodeDataAttribute } = useQuery(query, params, {
     initial
   });

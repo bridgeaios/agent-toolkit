@@ -1,7 +1,13 @@
 ---
+title: "Sanity Studio Structure Rules"
 description: Rules for customizing the Sanity Studio Structure (S.structure).
 globs: sanity.config.ts, src/structure/**/*.ts, structure/**/*.ts
-alwaysApply: false
+tags:
+  - studio
+  - structure
+  - singleton
+  - navigation
+  - views
 ---
 
 # Sanity Studio Structure Rules
@@ -69,7 +75,7 @@ function createSingleton(S: StructureBuilder, typeName: string, title: string, i
 createSingleton(S, 'settings', 'Site Settings', CogIcon)
 ```
 
-**For localized singletons** (e.g., homepage per language), see `sanity-localization.mdc` Section 6.
+**For localized singletons** (e.g., homepage per language), see `localization.md` Section 6.
 
 ## 5. Implementation Pattern
 
@@ -86,7 +92,7 @@ export const structure: StructureResolver = (S) =>
         .title('Site Settings')
         .icon(CogIcon)
         .child(S.document().schemaType('settings').documentId('settings')),
-      
+
       S.divider(),
 
       // 2. Content Verticals

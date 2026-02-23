@@ -1,7 +1,14 @@
 ---
+title: Sanity App SDK
 description: Rules for building custom applications with the Sanity App SDK, including React hooks, document handles, real-time patterns, and Suspense best practices.
 globs: src/**/*.tsx, src/**/*.ts, sanity.cli.ts, App.tsx
-alwaysApply: false
+tags:
+  - app-sdk
+  - react
+  - hooks
+  - real-time
+  - suspense
+  - custom-apps
 ---
 
 # Sanity App SDK
@@ -49,13 +56,13 @@ my-app/
 
 ## Boundaries
 
-- ✅ **Always:** Wrap data-fetching components in `<Suspense>`, use `documentId` as React `key`, read/write directly to Content Lake (not local state)
-- ✅ **Always:** Use `useDocuments` for lists, `useDocumentProjection` for display, `useDocument` + `useEditDocument` for editing
-- ⚠️ **Ask first:** Before using `useQuery` with raw GROQ (prefer `useDocuments` + `useDocumentProjection`)
-- ⚠️ **Ask first:** Before adding multiple data-fetching hooks in a single component
-- 🚫 **Never:** Use `useState` for form values that should sync with Content Lake
-- 🚫 **Never:** Use array index as React `key` for document lists (breaks real-time updates)
-- 🚫 **Never:** Forget the `fallback` prop on `<SanityApp>` and `<Suspense>` boundaries
+- **Always:** Wrap data-fetching components in `<Suspense>`, use `documentId` as React `key`, read/write directly to Content Lake (not local state)
+- **Always:** Use `useDocuments` for lists, `useDocumentProjection` for display, `useDocument` + `useEditDocument` for editing
+- **Ask first:** Before using `useQuery` with raw GROQ (prefer `useDocuments` + `useDocumentProjection`)
+- **Ask first:** Before adding multiple data-fetching hooks in a single component
+- **Never:** Use `useState` for form values that should sync with Content Lake
+- **Never:** Use array index as React `key` for document lists (breaks real-time updates)
+- **Never:** Forget the `fallback` prop on `<SanityApp>` and `<Suspense>` boundaries
 
 ---
 
@@ -148,17 +155,17 @@ interface DocumentHandle {
 ### Creating Handles
 
 ```typescript
-// ✅ Best: From useDocuments hook
+// Best: From useDocuments hook
 const { data: handles } = useDocuments({ documentType: 'article' })
 
-// ✅ Good: With helper (preserves literal types for TypeGen)
+// Good: With helper (preserves literal types for TypeGen)
 import { createDocumentHandle } from '@sanity/sdk'
 const handle = createDocumentHandle({
   documentId: 'my-doc-id',
   documentType: 'article',
 })
 
-// ✅ Good: With as const (preserves literal types)
+// Good: With as const (preserves literal types)
 const handle = {
   documentId: 'my-doc-id',
   documentType: 'article',
@@ -184,7 +191,7 @@ const handle = {
 ### Fetching a Document List
 
 ```typescript
-// ✅ Good: Fetch handles, render items with Suspense
+// Good: Fetch handles, render items with Suspense
 import { Suspense } from 'react'
 import { useDocuments } from '@sanity/sdk-react'
 
@@ -215,7 +222,7 @@ function ArticleList() {
 ```
 
 ```typescript
-// ❌ Bad: Over-fetching with raw GROQ, no pagination
+// Bad: Over-fetching with raw GROQ, no pagination
 function BadArticleList() {
   const { data } = useQuery(`*[_type == "article"]`)
   return data?.map((doc, i) => <li key={i}>{doc.title}</li>)
@@ -225,7 +232,7 @@ function BadArticleList() {
 ### Projecting Content from a Handle
 
 ```typescript
-// ✅ Good: Project only needed fields
+// Good: Project only needed fields
 import { useDocumentProjection, type DocumentHandle } from '@sanity/sdk-react'
 
 function ArticleItem(handle: DocumentHandle) {
@@ -252,7 +259,7 @@ function ArticleItem(handle: DocumentHandle) {
 ### Real-time Editing
 
 ```typescript
-// ✅ Good: Read and write directly to Content Lake
+// Good: Read and write directly to Content Lake
 import { useDocument, useEditDocument, type DocumentHandle } from '@sanity/sdk-react'
 
 function TitleInput(handle: DocumentHandle) {
@@ -270,7 +277,7 @@ function TitleInput(handle: DocumentHandle) {
 ```
 
 ```typescript
-// ❌ Bad: Local state with submit button - causes stale data
+// Bad: Local state with submit button - causes stale data
 function BadTitleForm(handle: DocumentHandle) {
   const [value, setValue] = useState('')
   const editTitle = useEditDocument({ ...handle, path: 'title' })
@@ -321,7 +328,7 @@ The App SDK uses React Suspense. Every data-fetching component must be wrapped.
 ### One Hook Per Component
 
 ```typescript
-// ✅ Good: Separate fetchers into separate components
+// Good: Separate fetchers into separate components
 function EventsAndVenues() {
   return (
     <>
@@ -347,7 +354,7 @@ function VenuesList() {
 ```
 
 ```typescript
-// ❌ Bad: Multiple fetchers in one component
+// Bad: Multiple fetchers in one component
 function BadComponent() {
   const { data: events } = useDocuments({ documentType: 'event' })
   const { data: venues } = useDocuments({ documentType: 'venue' })
@@ -358,7 +365,7 @@ function BadComponent() {
 ### Prevent Layout Shift
 
 ```typescript
-// ✅ Good: Fallback matches final component dimensions
+// Good: Fallback matches final component dimensions
 const BUTTON_TEXT = 'Open in Studio'
 
 export function OpenInStudio({ handle }: { handle: DocumentHandle }) {

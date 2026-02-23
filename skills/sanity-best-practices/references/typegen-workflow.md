@@ -8,7 +8,7 @@ tags: typegen, typescript, workflow, types
 
 TypeGen generates types from your schema and GROQ queries. Enable automatic generation or run manually.
 
-> For full configuration details, project structure examples, type utilities, and advanced patterns, see `rules/sanity-typegen.mdc`.
+> For full configuration details, project structure examples, type utilities, and advanced patterns, see `typegen.md`.
 
 ### Automatic Generation (Recommended)
 

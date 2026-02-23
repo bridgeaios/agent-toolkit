@@ -1,7 +1,13 @@
 ---
+title: "Sanity + Shopify + Hydrogen Rules"
 description: Integration guide for Sanity with Shopify using the Hydrogen framework (React Router 7).
 globs: web/app/**/*.tsx, web/app/**/*.ts, studio/sanity.config.ts, web/.env
-alwaysApply: false
+tags:
+  - hydrogen
+  - shopify
+  - react-router
+  - visual-editing
+  - ecommerce
 ---
 
 # Sanity + Shopify + Hydrogen Rules
@@ -169,7 +175,7 @@ import {VisualEditing} from 'hydrogen-sanity/visual-editing'
 
 export function Layout({children}: {children?: React.ReactNode}) {
   const previewMode = usePreviewMode()
-  
+
   return (
     <html>
       <body>
@@ -246,17 +252,17 @@ pnpm dlx sanity manage
 
 ## 8. Boundaries
 
-- ✅ **Always:**
+- Always:
   - Query Shopify for commerce data (price, inventory, variants)
   - Query Sanity for editorial content (rich text, custom fields)
   - Use `hydrogen-sanity` package for Visual Editing
   - Add Hydrogen URL to CORS origins in Sanity Manage
 
-- ⚠️ **Ask First:**
+- Ask First:
   - Before modifying Sanity Connect sync settings
   - Before changing CSP configuration
 
-- 🚫 **Never:**
+- Never:
   - Edit Shopify-synced fields in Sanity (they're `readOnly`)
   - Expose `SANITY_API_TOKEN` to client-side code
   - Query Sanity for commerce data that should come from Shopify

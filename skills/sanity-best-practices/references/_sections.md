@@ -1,8 +1,22 @@
 # Section Definitions
 
-This file defines the rule categories for Sanity best practices. Rules are automatically assigned to sections based on their filename prefix.
+This file defines the reference categories for Sanity best practices. Atomic rules are assigned to sections by filename prefix. Comprehensive guides use plain topic names.
 
 ---
+
+## Integration Guides
+
+Framework-specific integration guides and onboarding (plain topic names):
+`get-started`, `nextjs`, `nuxt`, `astro`, `remix`, `svelte`, `hydrogen`, `project-structure`, `app-sdk`, `blueprints`
+
+## Topic Guides
+
+Comprehensive topic guides covering multiple related patterns (plain topic names):
+`schema`, `groq`, `visual-editing`, `page-builder`, `portable-text`, `image`, `studio-structure`, `typegen`, `seo`, `localization`, `migration`
+
+## Best Practice Rules
+
+Focused, single-topic rules assigned to sections by filename prefix:
 
 ## 1. GROQ Performance (groq)
 Query optimization, index usage, and performance patterns. Covers optimizable filters, avoiding joins in filters, cursor pagination, and projection best practices.

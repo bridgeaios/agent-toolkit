@@ -1,7 +1,13 @@
 ---
+title: Astro & Sanity Integration Rules
 description: Integration guide for Astro, including @sanity/astro, visual editing, and data fetching.
 globs: astro.config.mjs, src/**/*.astro, src/utils/sanity.ts, src/pages/**/*.astro
-alwaysApply: false
+tags:
+  - astro
+  - sanity-astro
+  - visual-editing
+  - data-fetching
+  - static-site
 ---
 
 # Astro & Sanity Integration Rules

@@ -1,12 +1,18 @@
 ---
+title: "Sanity Page Builder Patterns"
 description: Patterns for Sanity Page Builder arrays, block components, and live editing.
-globs: **/*.tsx
-alwaysApply: false
+globs: "**/*.tsx"
+tags:
+  - page-builder
+  - blocks
+  - schema
+  - visual-editing
+  - components
 ---
 
 # Sanity Page Builder Patterns
 
-This guide covers **Page Builder** patterns—arrays of block objects that allow content teams to compose flexible page layouts. For Portable Text (rich text within documents), see `sanity-portable-text.mdc`.
+This guide covers **Page Builder** patterns—arrays of block objects that allow content teams to compose flexible page layouts. For Portable Text (rich text within documents), see `portable-text.md`.
 
 ## 1. What is a Page Builder?
 
@@ -156,10 +162,10 @@ export function PageBuilder({ content }: { content: Block[] }) {
 
 **Always use `_key` for React keys:**
 ```typescript
-// ❌ Breaks Visual Editing and causes hydration issues
+// Breaks Visual Editing and causes hydration issues
 {items.map((item, i) => <Component key={i} {...item} />)}
 
-// ✅ Always use Sanity's _key
+// Always use Sanity's _key
 {items.map((item) => <Component key={item._key} {...item} />)}
 ```
 
@@ -243,7 +249,7 @@ export function Hero({ _key, documentId, ...initialProps }: HeroProps) {
 
 This pattern is especially valuable for pages with many blocks or complex nested data.
 
-**Note:** See `sanity-nextjs.mdc` for more details on `usePresentationQuery` and `sanity-visual-editing.mdc` for the conceptual overview.
+**Note:** See `nextjs.md` for more details on `usePresentationQuery` and `visual-editing.md` for the conceptual overview.
 
 ## 6. Page Builder Pitfalls
 
@@ -286,7 +292,7 @@ export function getTextAlign(align?: string) {
 
 **Bad Schema:**
 ```typescript
-// ❌ Don't do this
+// Don't do this
 { name: 'level', type: 'string', options: { list: ['h1', 'h2'] } }
 ```
 
@@ -305,4 +311,4 @@ export default function Section({ block, level = 'h2' }: Props) {
 }
 ```
 
-*Note: For Image patterns, see `sanity-image.mdc`. For Portable Text patterns, see `sanity-portable-text.mdc`.*
+*Note: For Image patterns, see `image.md`. For Portable Text patterns, see `portable-text.md`.*

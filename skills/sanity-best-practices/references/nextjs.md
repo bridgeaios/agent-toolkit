@@ -1,7 +1,14 @@
 ---
+title: Next.js & Sanity Integration Rules
 description: Integration guide for Next.js App Router, Live Content API, and Sanity Studio (Embedded or Standalone).
 globs: app/**/*.tsx, src/sanity/**/*.ts, sanity.config.ts, studio/**/*.ts
-alwaysApply: false
+tags:
+  - nextjs
+  - next-sanity
+  - app-router
+  - live-content
+  - visual-editing
+  - embedded-studio
 ---
 
 # Next.js & Sanity Integration Rules
@@ -13,7 +20,7 @@ alwaysApply: false
 
 The Studio lives inside your Next.js app at `/app/studio/[[...tool]]/page.tsx`.
 - **Config:** `sanity.config.ts` lives in the project root.
-- See `sanity-project-structure` rule for detailed structure.
+- See `project-structure.md` rule for detailed structure.
 
 ### Option B: Monorepo (Alternative)
 **Best for:** Separation of concerns, multiple frontends, or strict dependency isolation.
@@ -26,7 +33,7 @@ apps/
 ```
 
 - **Config:** Add your Next.js app URL to **CORS Origins** in Sanity project settings.
-- See `sanity-project-structure` rule for detailed structure.
+- See `project-structure.md` rule for detailed structure.
 
 ## 2. Data Fetching (Live Content API)
 
@@ -38,7 +45,7 @@ We use `defineLive` (next-sanity v11+) to enable real-time content updates and V
 import { defineLive } from 'next-sanity'
 import { client } from './client'
 
-export const { sanityFetch, SanityLive } = defineLive({ 
+export const { sanityFetch, SanityLive } = defineLive({
   client: client.withConfig({
     apiVersion: '2026-02-01'
   }),
@@ -476,7 +483,7 @@ export const PTE_IMAGE_PRESENTATION_QUERY = defineQuery(`
 `)
 ```
 
-**See also:** `sanity-visual-editing.mdc` for the conceptual overview and `sanity-page-builder.mdc` for full Page Builder patterns.
+**See also:** `visual-editing.md` for the conceptual overview and `page-builder.md` for full Page Builder patterns.
 
 ## 9. Pagination Pattern
 
@@ -486,7 +493,7 @@ For listing pages with many entries, use offset-based pagination with a count qu
 ```typescript
 // Paginated listing
 export const ARTICLES_QUERY = defineQuery(`
-  *[_type == "article" && defined(slug.current)] 
+  *[_type == "article" && defined(slug.current)]
   | order(date desc) [$start...$end] {
     _id, title, "slug": slug.current, date
   }
@@ -502,10 +509,10 @@ export const ARTICLES_COUNT_QUERY = defineQuery(`
 ```typescript
 const ENTRIES_PER_PAGE = 10;
 
-export default async function BlogPage({ 
-  searchParams 
-}: { 
-  searchParams: Promise<{ page?: string }> 
+export default async function BlogPage({
+  searchParams
+}: {
+  searchParams: Promise<{ page?: string }>
 }) {
   const { page: pageParam } = await searchParams;
   const page = parseInt(pageParam || "1");
@@ -528,3 +535,4 @@ export default async function BlogPage({
     </main>
   );
 }
+```

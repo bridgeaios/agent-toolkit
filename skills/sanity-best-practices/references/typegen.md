@@ -1,7 +1,13 @@
 ---
+title: Sanity TypeGen Rules
 description: Workflow for generating TypeScript types from Sanity Schema and GROQ queries.
 globs: package.json, sanity.types.ts, tsconfig.json, sanity.cli.ts
-alwaysApply: false
+tags:
+  - typegen
+  - typescript
+  - types
+  - groq
+  - code-generation
 ---
 
 # Sanity TypeGen Rules
@@ -53,9 +59,9 @@ For manual workflows, implement a single script:
 ### Git Strategy for Generated Files
 
 **Option A: Commit generated types (Recommended for most teams)**
-- ✅ Types available immediately after `git pull`
-- ✅ CI/CD doesn't need to run typegen
-- ❌ Can cause merge conflicts
+- Types available immediately after `git pull`
+- CI/CD doesn't need to run typegen
+- Can cause merge conflicts
 
 **Option B: Generate in CI (Recommended for larger teams)**
 Add to `.gitignore`:
@@ -172,11 +178,11 @@ type HeroBlock = FilterByType<PageBuilder, 'hero'>
 All queries must have unique variable names. Duplicate names across files will cause TypeGen to silently overwrite types. Use descriptive, scoped names:
 
 ```typescript
-// ✅ Unique names
+// Unique names
 const POSTS_INDEX_QUERY = defineQuery(`*[_type == "post"]{ title }`)
 const POST_DETAIL_QUERY = defineQuery(`*[_type == "post" && slug.current == $slug][0]`)
 
-// ❌ Duplicate names will conflict
+// Duplicate names will conflict
 const QUERY = defineQuery(`*[_type == "post"]`)  // file-a.ts
 const QUERY = defineQuery(`*[_type == "author"]`) // file-b.ts — overwrites!
 ```
@@ -185,13 +191,13 @@ const QUERY = defineQuery(`*[_type == "author"]`) // file-b.ts — overwrites!
 Queries must be assigned to a variable using `groq` or `defineQuery`:
 
 ```typescript
-// ✅ Works — groq template tag
+// Works — groq template tag
 const query = groq`*[_type == "post"]`
 
-// ✅ Works — defineQuery
+// Works — defineQuery
 const query = defineQuery(`*[_type == "post"]`)
 
-// ❌ Won't work — inline query
+// Won't work — inline query
 await client.fetch(groq`*[_type == "post"]`)
 ```
 

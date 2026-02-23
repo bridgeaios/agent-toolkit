@@ -1,7 +1,13 @@
 ---
+title: "Sanity Visual Editing Rules"
 description: Comprehensive guide for Sanity Visual Editing, including Presentation Tool, Stega (Content Source Maps), and Overlays.
 globs: sanity.config.ts, src/**/*.tsx, app/**/*.tsx, pages/**/*.vue, **/*.astro
-alwaysApply: false
+tags:
+  - visual-editing
+  - presentation-tool
+  - stega
+  - overlays
+  - draft-mode
 ---
 
 # Sanity Visual Editing Rules
@@ -40,7 +46,7 @@ When Visual Editing is enabled, string fields will contain invisible characters.
 import { stegaClean } from "@sanity/client/stega";
 
 export function Layout({ align }: { align: string }) {
-  // ✅ Good: Clean before comparison
+  // Good: Clean before comparison
   const cleanAlign = stegaClean(align);
   return <div className={cleanAlign === 'center' ? 'mx-auto' : ''} />
 }
@@ -173,7 +179,7 @@ export function DisableDraftMode() {
 export async function generateMetadata({ params }) {
   const { data } = await sanityFetch({
     query: SEO_QUERY,
-    stega: false // 👈 Critical
+    stega: false // Critical
   })
   return { title: data.title }
 }
@@ -210,10 +216,10 @@ By default, editing a field in the Presentation Tool triggers a full page re-ren
 ### The Concept
 
 Instead of:
-1. User edits a field → Full page query re-runs → All components re-render
+1. User edits a field -> Full page query re-runs -> All components re-render
 
 You get:
-1. User edits a field → Block-specific query runs → Only that component re-renders
+1. User edits a field -> Block-specific query runs -> Only that component re-renders
 
 ### How It Works
 
@@ -234,9 +240,9 @@ You get:
 This pattern works for both Page Builder blocks (`pageBuilder[]`) and Portable Text blocks (`body[]`).
 
 **See framework-specific rules for implementation:**
-- Next.js: `sanity-nextjs.mdc` (Section 9)
-- Page Builder: `sanity-page-builder.mdc` (Section 5)
-- Portable Text: `sanity-portable-text.mdc` (Section 7)
+- Next.js: `nextjs.md` (Section 9)
+- Page Builder: `page-builder.md` (Section 5)
+- Portable Text: `portable-text.md` (Section 7)
 
 ## 9. Framework Specifics
 

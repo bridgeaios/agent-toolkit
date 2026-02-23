@@ -1,7 +1,15 @@
 ---
+title: Sanity SEO Best Practices
 description: SEO best practices for Sanity with Next.js, including metadata, Open Graph, sitemaps, redirects, and JSON-LD structured data.
 globs: app/**/*.tsx, src/sanity/schemaTypes/**/*.ts, sanity.config.ts
-alwaysApply: false
+tags:
+  - seo
+  - metadata
+  - open-graph
+  - sitemap
+  - redirects
+  - json-ld
+  - structured-data
 ---
 
 # Sanity SEO Best Practices
@@ -99,12 +107,12 @@ const getPage = async (params: RouteProps["params"]) =>
   sanityFetch({
     query: PAGE_QUERY,
     params: await params,
-    stega: false, // 👈 Critical for SEO!
+    stega: false, // Critical for SEO!
   });
 
 export async function generateMetadata({ params }: RouteProps): Promise<Metadata> {
   const { data: page } = await getPage(params);
-  
+
   if (!page) return {};
 
   const metadata: Metadata = {
@@ -137,7 +145,7 @@ export default async function Page({ params }: RouteProps) {
 }
 ```
 
-**⚠️ Critical:** Always set `stega: false` when fetching for metadata. Stega characters in `<title>` destroy SEO.
+**Critical:** Always set `stega: false` when fetching for metadata. Stega characters in `<title>` destroy SEO.
 
 ## 5. Dynamic Sitemap
 

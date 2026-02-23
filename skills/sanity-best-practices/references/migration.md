@@ -1,7 +1,13 @@
 ---
+title: Sanity Content Migration Rules
 description: Best practices for migrating content (HTML, Markdown) into Sanity Portable Text.
 globs: scripts/**/*.ts, import/**/*.ts, migrations/**/*.ts
-alwaysApply: false
+tags:
+  - migration
+  - content-import
+  - html
+  - markdown
+  - portable-text
 ---
 
 # Sanity Content Migration Rules

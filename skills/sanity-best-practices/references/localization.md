@@ -1,7 +1,13 @@
 ---
+title: Sanity Localization Rules
 description: Localization patterns for Sanity using official plugins and best practices.
 globs: schemaTypes/**/*.ts, sanity.config.ts, **/*.tsx
-alwaysApply: false
+tags:
+  - localization
+  - i18n
+  - internationalization
+  - languages
+  - translation
 ---
 
 # Sanity Localization Rules
@@ -111,8 +117,8 @@ export default defineConfig({
     newDocumentOptions: (prev, { creationContext }) => {
       // Filter to only show base language in "New document" menu
       // The plugin handles creating translations from there
-      return prev.filter((item) => 
-        !['post', 'page'].includes(item.templateId) || 
+      return prev.filter((item) =>
+        !['post', 'page'].includes(item.templateId) ||
         item.parameters?.language === 'en'
       )
     },
@@ -138,7 +144,7 @@ export default defineConfig({
 
 // Get all translations via metadata document
 *[_type == "translation.metadata" && references($docId)][0] {
-  translations[] { 
+  translations[] {
     _key,
     value-> { title, slug, language }
   }
@@ -261,9 +267,9 @@ export const structure: StructureResolver = (S) =>
     .items([
       // Localized singletons
       createLocalizedSingleton(S, 'homePage', 'Home Page', HomeIcon),
-      
+
       S.divider(),
-      
+
       // Filter localized singletons from default list
       ...S.documentTypeListItems().filter(
         (item) => !['homePage'].includes(item.getId() as string)
@@ -289,7 +295,7 @@ export const structure: StructureResolver = (S) =>
 - **Fixed IDs:** Use `${typeName}-${locale}` pattern for predictable document IDs
 - **Initial Value Templates:** Essential for the "New document" menu to work correctly
 - **Structure:** Group all locale versions under one list item for cleaner navigation
-- **See also:** `sanity-studio-structure.mdc` for more singleton patterns
+- **See also:** `studio-structure.md` for more singleton patterns
 
 ## 7. Field-Level Localization
 
@@ -410,8 +416,8 @@ npm install @sanity/language-filter
 ## 10. Frontend URL Best Practices
 
 **Always include locale in the URL** for SEO:
-- ✅ `yoursite.com/en/my-page` → `yoursite.com/fr/my-page`
-- ✅ `yoursite.com/my-page` → redirects to default locale
+- `yoursite.com/en/my-page` → `yoursite.com/fr/my-page`
+- `yoursite.com/my-page` → redirects to default locale
 
 **Avoid:** Having the default locale at root without prefix — causes SEO edge cases.
 

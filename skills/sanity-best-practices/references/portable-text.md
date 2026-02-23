@@ -1,14 +1,20 @@
 ---
+title: "Sanity Portable Text Rules"
 description: Portable Text (Rich Text) rendering and custom component creation for React/Next.js.
-globs: **/*.tsx
-alwaysApply: false
+globs: "**/*.tsx"
+tags:
+  - portable-text
+  - rich-text
+  - components
+  - marks
+  - blocks
 ---
 
 # Sanity Portable Text Rules
 
 Portable Text is Sanity's rich text format, used for content like article bodies (`body[]`). This guide covers rendering and creating custom PTE components.
 
-**Note:** For page-level layout blocks (`pageBuilder[]`), see `sanity-page-builder.mdc`.
+**Note:** For page-level layout blocks (`pageBuilder[]`), see `page-builder.md`.
 
 ## 1. The Component
 Use the `PortableText` component from `next-sanity` (or `@portabletext/react`).
@@ -35,7 +41,7 @@ const components: PortableTextComponents = {
     h2: ({ children }) => <h2 className="text-3xl font-bold">{children}</h2>,
     blockquote: ({ children }) => <blockquote className="border-l-4 pl-4">{children}</blockquote>,
   },
-  
+
   // 2. Custom types (non-text blocks like images, videos)
   types: {
     image: ({ value }) => <SanityImage value={value} />,
@@ -51,7 +57,7 @@ const components: PortableTextComponents = {
       return <a href={value.href} rel={rel} className="underline text-blue-600">{children}</a>;
     },
   },
-  
+
   // 4. Lists
   list: {
     bullet: ({ children }) => <ul className="list-disc ml-4">{children}</ul>,
@@ -106,7 +112,7 @@ import { useIsPresentationTool } from 'next-sanity/hooks'
 
 function Heading2Wrapper(props) {
   const isPresentationTool = useIsPresentationTool()
-  
+
   if (isPresentationTool) {
     return <Heading2Client {...props} />
   }
@@ -170,7 +176,7 @@ type PteImageProps = {
 
 export function PteImageComponent({ value }: PteImageProps) {
   if (!value.image) return null
-  
+
   return (
     <figure className="my-8">
       <SanityImage value={value.image} alt={value.alt} />
@@ -250,7 +256,7 @@ export function LinkMark({ children, value }: LinkMarkProps) {
   const { href, openInNewTab } = value
   const target = openInNewTab ? '_blank' : undefined
   const rel = openInNewTab ? 'noopener noreferrer' : undefined
-  
+
   return (
     <a href={href} target={target} rel={rel} className="text-blue-600 underline">
       {children}
@@ -300,12 +306,12 @@ export function PteImageComponent({ value, documentId }: { value: any; documentI
   })
 
   const blockData = data?.pteImageBlock || value
-  
+
   // ... render with blockData
 }
 ```
 
-**Note:** You'll need to pass `documentId` through to your PTE components. See `sanity-visual-editing.mdc` for context patterns.
+**Note:** You'll need to pass `documentId` through to your PTE components. See `visual-editing.md` for context patterns.
 
 ## 8. GROQ Fragment for PTE
 
@@ -334,7 +340,7 @@ When Visual Editing is enabled, text content contains invisible stega characters
 
 **For text rendering:** Let stega characters pass through—they enable overlays:
 ```typescript
-// ✅ Good - stega preserved for click-to-edit
+// Good - stega preserved for click-to-edit
 <h2>{children}</h2>
 ```
 
@@ -342,7 +348,7 @@ When Visual Editing is enabled, text content contains invisible stega characters
 ```typescript
 import { stegaClean } from '@sanity/client/stega'
 
-// ✅ Clean before using in logic
+// Clean before using in logic
 const cleanedStyle = stegaClean(block.style)
 if (cleanedStyle === 'h2') { ... }
 ```
