@@ -50,6 +50,7 @@ If the Sanity MCP server (`https://mcp.sanity.io`) is available, use `list_sanit
 | **GROQ** | `groq`, `query`, `defineQuery`, `projection`, `filter`, `order` | `rules/sanity-groq.mdc` |
 | **TypeGen** | `typegen`, `typescript`, `types`, `infer`, `satisfies`, `type generation` | `rules/sanity-typegen.mdc` |
 | **App SDK** | `app sdk`, `custom app`, `useDocuments`, `useDocument`, `DocumentHandle`, `SanityApp`, `sdk-react` | `rules/sanity-app-sdk.mdc` |
+| **Blueprints** | `blueprints`, `IaC`, `infrastructure`, `stack`, `defineBlueprint`, | `rules/sanity-blueprints.mdc` |
 
 ### Using the Knowledge Router
 

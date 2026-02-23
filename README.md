@@ -252,6 +252,7 @@ Portable `.mdc` files that provide Sanity best practices to AI agents.
 - **`sanity-project-structure.mdc`**: File organization for Studio and monorepos.
 - **`sanity-get-started.mdc`**: Interactive 3-phase onboarding guide.
 - **`sanity-app-sdk.mdc`**: Building custom apps with the Sanity App SDK, React hooks, and real-time patterns.
+- **`sanity-blueprints.mdc`**: Infrastructure as Code for Sanity resources.
 </details>
 
 <details>
@@ -333,7 +334,7 @@ sanity-io/agent-toolkit/
 - [Visual Editing guide](https://www.sanity.io/docs/visual-editing)
 - [Sanity TypeGen](https://www.sanity.io/docs/sanity-typegen)
 - [MCP server docs](https://www.sanity.io/docs/compute-and-ai/mcp-server)
-
+- [Blueprints Infrastructure as Code](https://www.sanity.io/docs/compute-and-ai/blueprints)
 
 ---
 
