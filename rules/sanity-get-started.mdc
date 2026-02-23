@@ -215,7 +215,7 @@ export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
   apiVersion: "2026-02-01", // Use current date for new projects
-  useCdn: true, // Use CDN for fast reads; set false for server-side generation
+  useCdn: false, // Use API directly for server-side rendering; set true for client-side reads
 });
 ```
 

@@ -8,6 +8,8 @@ tags: typegen, typescript, workflow, types
 
 TypeGen generates types from your schema and GROQ queries. Enable automatic generation or run manually.
 
+> For full configuration details, project structure examples, type utilities, and advanced patterns, see `rules/sanity-typegen.mdc`.
+
 ### Automatic Generation (Recommended)
 
 Enable in `sanity.cli.ts` — types regenerate during `sanity dev` and `sanity build`:
@@ -23,7 +25,7 @@ export default defineCliConfig({
 })
 ```
 
-For separate frontend repos, use watch mode: `sanity typegen generate --watch`
+For separate frontend repos, use watch mode: `npx sanity typegen generate --watch`
 
 ### Manual Generation
 
@@ -54,13 +56,6 @@ export default defineCliConfig({
 })
 ```
 
-### Workflow
-
-1. Modify schema (`schemaTypes/...`)
-2. Modify queries (files with `defineQuery` or `groq`)
-3. If not using automatic generation, run `npm run typegen`
-4. Restart TS Server if types don't update
-
 ### Usage
 
 With `overloadClientMethods: true` (default), `client.fetch()` returns typed results automatically:
@@ -83,20 +78,5 @@ function PostList({ posts }: { posts: POST_QUERYResult }) {
   // Fully typed!
 }
 ```
-
-### Git Strategy
-
-**Option A: Commit generated types (most teams)**
-- Types available immediately after `git pull`
-- CI doesn't need to run typegen
-
-**Option B: Generate in CI (larger teams)**
-```gitignore
-# .gitignore
-sanity.types.ts
-schema.json
-```
-
-Then in CI: `npm run typegen && npm run build`
 
 Reference: [Sanity TypeGen](https://www.sanity.io/docs/apis-and-sdks/sanity-typegen)

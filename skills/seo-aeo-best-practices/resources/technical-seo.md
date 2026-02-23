@@ -160,14 +160,15 @@ Sitemap: https://example.com/sitemap.xml
 For multi-language sites, implement hreflang tags to indicate language/region variants:
 
 ```typescript
-export async function generateMetadata({ params }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
+  const { lang, slug } = await params
   return {
     alternates: {
-      canonical: `https://example.com/${params.lang}/${params.slug}`,
+      canonical: `https://example.com/${lang}/${slug}`,
       languages: {
-        'en': `https://example.com/en/${params.slug}`,
-        'de': `https://example.com/de/${params.slug}`,
-        'x-default': `https://example.com/en/${params.slug}`,
+        'en': `https://example.com/en/${slug}`,
+        'de': `https://example.com/de/${slug}`,
+        'x-default': `https://example.com/en/${slug}`,
       },
     },
   }

@@ -127,7 +127,7 @@ Example: If asked to "create a blog post schema", read `rules/sanity-schema.mdc`
 ## Boundaries
 - **Always:**
   - Use `defineQuery` for all GROQ queries.
-  - Prefer MCP tools for content operations (query, create, update, patch). For bulk migrations or when MCP is unavailable, NDJSON scripts are a valid alternative.
+  - Prefer MCP tools for content operations (query, create, update, patch). For bulk migrations or when MCP is unavailable, NDJSON scripts are a valid alternative. Never use NDJSON scripts when MCP tools can accomplish the same task more simply.
   - Run `deploy_schema` after schema changes — required before using content tools. If a local Studio exists, update schema files first to keep them in sync with the deployed schema.
   - Follow the "Deprecation Pattern" when removing fields (ReadOnly -> Hidden -> Deprecated).
   - Run `npm run typegen` after schema or query changes (or enable automatic generation with `typegen.enabled: true` in `sanity.cli.ts`).

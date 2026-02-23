@@ -27,6 +27,11 @@
         "structured-content",
         "visual-editing"
       ],
+      "author": {
+        "name": "Sanity",
+        "email": "support@sanity.io",
+        "url": "https://www.sanity.io"
+      },
       "category": "cms",
       "tags": ["sanity", "cms", "groq", "structured-content", "visual-editing"]
     }

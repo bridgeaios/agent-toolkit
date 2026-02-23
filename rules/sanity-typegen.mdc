@@ -37,7 +37,7 @@ npx sanity schema extract && npx sanity typegen generate
 If your frontend is in a separate repo from the Studio, use watch mode:
 
 ```bash
-sanity typegen generate --watch
+npx sanity typegen generate --watch
 ```
 
 ## 2. The "Update Types" Pattern
