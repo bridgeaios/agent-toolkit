@@ -183,16 +183,15 @@ count(*[_type == "post" && defined(slug.current)])
 ### Optimizable vs Non-Optimizable Filters
 GROQ uses indexes for **optimizable** filters. Non-optimizable filters scan ALL documents.
 
-```groq
-// ✅ Optimizable (uses index)
-*[_type == "product"]
-*[_type == "post" && slug.current == $slug]
-*[_type == "article" && defined(publishedAt)]
-
-// ❌ Non-optimizable (scans everything)
-*[salePrice < displayPrice]  // Two attributes compared
-*[author->name == "Bob"]     // Join in filter
-```
+| Pattern | Optimizable | Example |
+|---------|-------------|---------|
+| `_type == "x"` | ✅ Yes | `*[_type == "post"]` |
+| `_id == "x"` | ✅ Yes | `*[_id == "abc123"]` |
+| `slug.current == $slug` | ✅ Yes | `*[slug.current == "hello"]` |
+| `defined(field)` | ✅ Yes | `*[defined(publishedAt)]` |
+| `references($id)` | ✅ Yes | `*[references("author-123")]` |
+| `field->attr == x` | ❌ No | Resolves reference for every doc |
+| `fieldA < fieldB` | ❌ No | Compares two attributes |
 
 **Fix non-optimizable filters by stacking:**
 ```groq
@@ -209,6 +208,20 @@ Reference resolution (`->`) in filters is expensive. Use `_ref` instead:
 
 // ✅ Fast: Direct _ref comparison
 *[_type == "post" && author._ref == "author-bob-woodward-id"]
+```
+
+**When you need dynamic lookups** (don't know the ID upfront):
+
+```groq
+// Two-step approach:
+// 1. Get the reference ID first
+*[_type == "author" && name == "Bob Woodward"][0]._id
+
+// 2. Use that ID in your main query
+*[_type == "post" && author._ref == $authorId]
+
+// Or use a subquery (still better than -> in filter):
+*[_type == "post" && author._ref in *[_type == "author" && name == "Bob Woodward"]._id]
 ```
 
 ### Merge Repeated Reference Resolutions
@@ -236,6 +249,54 @@ Deep slices are slow because all skipped docs must be sorted first.
 
 // ✅ Fast: Cursor-based, only fetches 20
 *[_type == "article" && _id > $lastId] | order(_id)[0...20]
+```
+
+**For custom sort orders**, include the sort field in the cursor:
+
+```groq
+// Compound cursor: publishedAt + _id for deterministic pagination
+*[_type == "article" && (
+  publishedAt < $lastDate || 
+  (publishedAt == $lastDate && _id > $lastId)
+)] | order(publishedAt desc, _id)[0...20]
+```
+
+### Always Project Fields
+Always use projections to return only the fields your application needs. Fetching entire documents wastes bandwidth and processing time.
+
+```groq
+// ❌ Returns ALL fields including unused ones, metadata, revisions
+*[_type == "post"]
+
+// ✅ Only fetch what the component needs
+*[_type == "post"]{
+  _id,
+  title,
+  "slug": slug.current,
+  publishedAt,
+  excerpt
+}
+```
+
+Apply projections at every level, including nested references:
+
+```groq
+*[_type == "post"]{
+  title,
+  author->{ name, "avatar": image.asset->url },
+  categories[]->{ title, "slug": slug.current }
+}
+```
+
+Use conditional projections for different contexts:
+
+```groq
+*[_type == "post"]{
+  title,
+  slug,
+  // Only include body for single post view
+  $includeBody == true => { body }
+}
 ```
 
 ### Don't Filter/Sort on Projected Values

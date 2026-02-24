@@ -68,6 +68,15 @@ function createSingleton(S: StructureBuilder, typeName: string, title: string, i
 createSingleton(S, 'settings', 'Site Settings', CogIcon)
 ```
 
+### Querying Singletons
+```groq
+// By fixed ID (most efficient)
+*[_id == "settings"][0]
+
+// By type (works but slower)
+*[_type == "settings"][0]
+```
+
 **For localized singletons** (e.g., homepage per language), see `localization.md` Section 6.
 
 ## 5. Implementation Pattern

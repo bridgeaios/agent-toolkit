@@ -10,6 +10,10 @@ Model **what things are**, not **what they look like**.
 - ❌ **Bad:** `bigHeroText`, `redButton`, `threeColumnRow`, `color`, `fontSize`
 - ✅ **Good:** `heroStatement`, `callToAction`, `featuresSection`, `status`, `role`
 
+**The test:** "If we redesigned the site, would this field name still make sense?"
+- `threeColumnLayout` → ❌ Fails (what if we go to 2 columns?)
+- `features` → ✅ Passes (features are features regardless of layout)
+
 ## 2. Strict Definition Syntax
 Always use the helper functions from `sanity` for type safety and autocompletion.
 
@@ -83,8 +87,31 @@ Every item in a Sanity array automatically gets a `_key` property. This is **cri
 {items.map((item, i) => <Component key={i} {...item} />)}
 ```
 
+**Querying:** Always include `_key` in array projections:
+```groq
+*[_type == "page"][0]{
+  pageBuilder[]{
+    _key,  // Always include _key in queries
+    _type,
+    ...
+  }
+}
+```
+
 ### B. Icons
-Always assign an icon from `@sanity/icons` to documents and objects. This improves the Studio UX significantly.
+Always assign an icon from `@sanity/icons` to documents and objects. This improves the Studio UX significantly. Browse all icons at [icons.sanity.build](https://icons.sanity.build/all).
+
+| Content Type | Icon |
+|--------------|------|
+| Article, Post | `DocumentTextIcon` |
+| Author, Person | `UserIcon` |
+| Category, Tag | `TagIcon` |
+| Settings | `CogIcon` |
+| Page | `DocumentIcon` |
+| Image block | `ImageIcon` |
+| Video block | `PlayIcon` |
+| FAQ | `HelpCircleIcon` |
+| Link | `LinkIcon` |
 
 ### C. Boolean vs. List
 Avoid boolean fields for binary states that might expand later.
@@ -207,9 +234,40 @@ defineField({
 ```
 
 ### Migration Workflow
-1.  **Phase 1:** Apply the deprecation pattern. Deploy.
-2.  **Phase 2:** Update frontend to use new fields (with fallbacks). Run migration scripts to move data.
-3.  **Phase 3:** Once `oldTitle` is undefined for all documents, delete the field definition.
+
+**Phase 1: Deprecate** — Apply the deprecation pattern above. Deploy.
+
+**Phase 2: Migrate** — Update frontend to use new fields (with `coalesce()` fallbacks). Create a migration:
+
+```typescript
+// migrations/rename-oldTitle-to-newTitle/index.ts
+import {defineMigration, at, setIfMissing, unset} from 'sanity/migrate'
+
+export default defineMigration({
+  title: 'Rename oldTitle to newTitle',
+  documentTypes: ['article'],
+  filter: 'defined(oldTitle) && !defined(newTitle)',
+  migrate: {
+    document(doc) {
+      if (!doc.oldTitle || doc.newTitle) return
+      return [
+        at('newTitle', setIfMissing(doc.oldTitle)),
+        at('oldTitle', unset())
+      ]
+    }
+  }
+})
+```
+
+```bash
+# Dry run first (default)
+sanity migration run rename-oldTitle-to-newTitle
+
+# Execute when ready
+sanity migration run rename-oldTitle-to-newTitle --no-dry-run
+```
+
+**Phase 3: Remove** — Once `oldTitle` is undefined for all documents, delete the field definition.
 
 ## 7. Validation Patterns
 

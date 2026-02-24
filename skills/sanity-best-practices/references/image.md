@@ -42,6 +42,15 @@ export const urlFor = (source: any) => {
 }
 ```
 
+**Usage:** The URL builder automatically uses hotspot/crop data when available:
+```typescript
+const imageUrl = urlFor(mainImage)
+  .width(800)
+  .height(600)
+  .fit('crop')  // Respects hotspot when cropping
+  .url()
+```
+
 ## 3. Next.js Image Component Pattern
 Create a reusable `SanityImage` component that handles the `urlFor` logic and `next/image` props.
 
