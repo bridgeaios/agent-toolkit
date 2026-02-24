@@ -1,6 +1,6 @@
 ---
 title: "Sanity Image Rules"
-description: Best practices for handling images in Sanity: Schema, URL generation, and Next.js Image integration.
+description: "Best practices for handling images in Sanity: Schema, URL generation, and Next.js Image integration."
 ---
 
 # Sanity Image Rules
