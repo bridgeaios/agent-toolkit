@@ -1,13 +1,6 @@
 ---
 title: "Sanity Studio Structure Rules"
 description: Rules for customizing the Sanity Studio Structure (S.structure).
-globs: sanity.config.ts, src/structure/**/*.ts, structure/**/*.ts
-tags:
-  - studio
-  - structure
-  - singleton
-  - navigation
-  - views
 ---
 
 # Sanity Studio Structure Rules

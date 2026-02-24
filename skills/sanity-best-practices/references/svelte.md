@@ -1,13 +1,6 @@
 ---
 title: "SvelteKit & Sanity Integration Rules"
 description: Integration guide for SvelteKit with Sanity, including @sanity/svelte-loader, Visual Editing, and Preview Mode.
-globs: src/routes/**/*.svelte, src/lib/sanity/**/*.ts, svelte.config.js, src/hooks.server.ts
-tags:
-  - svelte
-  - sveltekit
-  - visual-editing
-  - preview
-  - loader
 ---
 
 # SvelteKit & Sanity Integration Rules

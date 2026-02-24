@@ -1,7 +1,6 @@
 ---
 title: Always Use Define Helpers
 description: Use defineType, defineField, and defineArrayMember for type safety
-tags: schema, typescript, best-practices, syntax
 ---
 
 ## Always Use Define Helpers

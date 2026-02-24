@@ -1,7 +1,6 @@
 ---
 title: Always Assign Icons
 description: Every document and object type should have an icon from @sanity/icons
-tags: studio, icons, ux, schema
 ---
 
 ## Always Assign Icons

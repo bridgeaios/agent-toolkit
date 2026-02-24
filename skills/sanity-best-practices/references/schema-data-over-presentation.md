@@ -1,7 +1,6 @@
 ---
 title: Model Data, Not Presentation
 description: Model what things ARE, not what they look like - enables content reuse across channels
-tags: schema, content-modeling, best-practices, architecture
 ---
 
 ## Model Data, Not Presentation

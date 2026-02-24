@@ -1,7 +1,6 @@
 ---
 title: Implement Singletons via Structure
 description: Singletons use fixed documentId in Structure, not schema options
-tags: studio, structure, singletons, configuration
 ---
 
 ## Implement Singletons via Structure

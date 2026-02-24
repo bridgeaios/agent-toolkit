@@ -1,13 +1,6 @@
 ---
 title: Sanity Localization Rules
 description: Localization patterns for Sanity using official plugins and best practices.
-globs: schemaTypes/**/*.ts, sanity.config.ts, **/*.tsx
-tags:
-  - localization
-  - i18n
-  - internationalization
-  - languages
-  - translation
 ---
 
 # Sanity Localization Rules

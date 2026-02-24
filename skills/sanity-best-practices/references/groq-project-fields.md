@@ -1,7 +1,6 @@
 ---
 title: Project Only Needed Fields
 description: Use projections to return only the fields your application needs
-tags: groq, performance, projections, optimization
 ---
 
 ## Project Only Needed Fields

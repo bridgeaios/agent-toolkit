@@ -1,13 +1,6 @@
 ---
 title: Sanity Getting Started Guide
 description: Use these rules when users ask to 'Get started with Sanity' or need help setting up a new Sanity project.
-globs: sanity.config.ts, sanity.cli.ts, package.json
-tags:
-  - getting-started
-  - setup
-  - studio
-  - mcp
-  - onboarding
 ---
 
 # Sanity Getting Started Guide

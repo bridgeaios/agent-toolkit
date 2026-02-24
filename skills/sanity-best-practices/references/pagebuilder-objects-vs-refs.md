@@ -1,7 +1,6 @@
 ---
 title: Objects vs References in Page Builders
 description: Default to objects for blocks; use references only for truly shared content
-tags: page-builder, schema, references, objects
 ---
 
 ## Objects vs References in Page Builders

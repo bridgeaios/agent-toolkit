@@ -1,7 +1,6 @@
 ---
 title: Merge Repeated Reference Resolutions
 description: Combine multiple -> calls to the same reference into a single subquery
-tags: groq, performance, references, projections
 ---
 
 ## Merge Repeated Reference Resolutions

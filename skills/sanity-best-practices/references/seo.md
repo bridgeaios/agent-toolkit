@@ -1,15 +1,6 @@
 ---
 title: Sanity SEO Best Practices
 description: SEO best practices for Sanity with Next.js, including metadata, Open Graph, sitemaps, redirects, and JSON-LD structured data.
-globs: app/**/*.tsx, src/sanity/schemaTypes/**/*.ts, sanity.config.ts
-tags:
-  - seo
-  - metadata
-  - open-graph
-  - sitemap
-  - redirects
-  - json-ld
-  - structured-data
 ---
 
 # Sanity SEO Best Practices

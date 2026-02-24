@@ -1,7 +1,6 @@
 ---
 title: Clean Stega for Logic Operations
 description: Use stegaClean() before string comparisons or object key lookups
-tags: visual-editing, stega, content-source-maps, best-practices
 ---
 
 ## Clean Stega for Logic Operations

@@ -1,7 +1,6 @@
 ---
 title: Safe Field Deprecation Pattern
 description: Never delete fields with data - use the ReadOnly → Hidden → Deprecated lifecycle
-tags: schema, migration, deprecation, safety
 ---
 
 ## Safe Field Deprecation Pattern

@@ -1,7 +1,6 @@
 ---
 title: References vs Nested Objects
 description: Choose between reference and nested object based on reusability needs
-tags: schema, references, objects, content-modeling
 ---
 
 ## References vs Nested Objects

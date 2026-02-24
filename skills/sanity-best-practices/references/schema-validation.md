@@ -1,7 +1,6 @@
 ---
 title: Use Validation Effectively
 description: Beyond rule.required() - patterns for email, URL, cross-field, and async validation
-tags: schema, validation, content-quality, best-practices
 ---
 
 ## Use Validation Effectively

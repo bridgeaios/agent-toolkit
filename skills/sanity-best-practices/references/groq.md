@@ -1,13 +1,6 @@
 ---
 title: GROQ Query Maintenance & Best Practices
 description: Guidelines for GROQ queries, type safety, performance optimization, and syntax highlighting.
-globs: "**/*.ts, **/*.tsx, **/*.js"
-tags:
-  - groq
-  - queries
-  - performance
-  - typegen
-  - data-fetching
 ---
 
 # GROQ Query Maintenance & Best Practices

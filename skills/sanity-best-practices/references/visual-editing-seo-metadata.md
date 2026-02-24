@@ -1,7 +1,6 @@
 ---
 title: Never Allow Stega in Metadata
 description: Disable stega or clean values for title, description, and canonical URLs
-tags: visual-editing, seo, metadata, stega
 ---
 
 ## Never Allow Stega in Metadata

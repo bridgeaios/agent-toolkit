@@ -1,13 +1,6 @@
 ---
 title: Sanity Schema Best Practices
 description: Rules for defining Sanity Content Models (Schemas), including field definitions, strict typing, and validation patterns.
-globs: schemaTypes/**/*.ts, sanity.config.ts
-tags:
-  - schema
-  - content-model
-  - validation
-  - fields
-  - types
 ---
 
 # Sanity Schema Best Practices

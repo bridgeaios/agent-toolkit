@@ -1,7 +1,6 @@
 ---
 title: TypeGen Update Workflow
 description: Run extract then generate after schema or query changes
-tags: typegen, typescript, workflow, types
 ---
 
 ## TypeGen Update Workflow

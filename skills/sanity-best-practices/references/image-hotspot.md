@@ -1,7 +1,6 @@
 ---
 title: Always Enable Image Hotspots
 description: Enable hotspot:true for editor-controlled cropping and focal points
-tags: images, schema, editor-experience, cropping
 ---
 
 ## Always Enable Image Hotspots

@@ -1,7 +1,6 @@
 ---
 title: Define Typed Portable Text Components
 description: Create a typed components object for blocks, types, marks, and lists
-tags: portable-text, components, rich-text, rendering
 ---
 
 ## Define Typed Portable Text Components

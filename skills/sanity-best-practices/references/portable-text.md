@@ -1,13 +1,6 @@
 ---
 title: "Sanity Portable Text Rules"
 description: Portable Text (Rich Text) rendering and custom component creation for React/Next.js.
-globs: "**/*.tsx"
-tags:
-  - portable-text
-  - rich-text
-  - components
-  - marks
-  - blocks
 ---
 
 # Sanity Portable Text Rules

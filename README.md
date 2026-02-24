@@ -274,7 +274,6 @@ sanity-io/agent-toolkit/
 └── skills/                        # Agent skills (agentskills.io format)
     ├── sanity-best-practices/     # Comprehensive Sanity skill
     │   ├── SKILL.md               # Skill definition and quick reference
-    │   ├── AGENTS.md              # Compiled rules (all 26 best practices)
     │   └── references/            # Individual reference files
     │       ├── get-started.md     # Onboarding guide
     │       ├── nextjs.md          # Next.js integration guide

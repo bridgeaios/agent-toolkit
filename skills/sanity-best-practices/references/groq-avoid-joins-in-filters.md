@@ -1,7 +1,6 @@
 ---
 title: Avoid Joins in Filters
 description: Use _ref for direct comparison instead of -> which resolves references for every document
-tags: groq, performance, references, joins
 ---
 
 ## Avoid Joins in Filters

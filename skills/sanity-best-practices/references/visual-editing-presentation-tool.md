@@ -1,7 +1,6 @@
 ---
 title: Configure Presentation Tool Correctly
 description: Setup for click-to-edit overlays and document location navigation
-tags: visual-editing, presentation-tool, studio, configuration
 ---
 
 ## Configure Presentation Tool Correctly

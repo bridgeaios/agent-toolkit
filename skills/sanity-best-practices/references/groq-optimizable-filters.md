@@ -1,7 +1,6 @@
 ---
 title: Use Optimizable Filters First
 description: Stack optimizable filters first to leverage indexes and avoid full dataset scans
-tags: groq, performance, indexes, query-optimization
 ---
 
 ## Use Optimizable Filters First

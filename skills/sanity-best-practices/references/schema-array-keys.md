@@ -1,7 +1,6 @@
 ---
 title: Use _key for Array Items
 description: Always use Sanity's _key as React key prop, never array index
-tags: schema, arrays, react, visual-editing
 ---
 
 ## Use _key for Array Items

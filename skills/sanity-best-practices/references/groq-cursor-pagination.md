@@ -1,7 +1,6 @@
 ---
 title: Use Cursor-Based Pagination
 description: Use cursor-based pagination instead of deep offsets for consistent performance
-tags: groq, performance, pagination, scaling
 ---
 
 ## Use Cursor-Based Pagination

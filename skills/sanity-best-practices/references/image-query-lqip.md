@@ -1,7 +1,6 @@
 ---
 title: Query LQIP for Blur Placeholders
 description: Explicitly query asset->metadata.lqip for blur-up loading effects
-tags: images, performance, lqip, placeholders
 ---
 
 ## Query LQIP for Blur Placeholders

@@ -1,13 +1,6 @@
 ---
 title: "Sanity Visual Editing Rules"
 description: Comprehensive guide for Sanity Visual Editing, including Presentation Tool, Stega (Content Source Maps), and Overlays.
-globs: sanity.config.ts, src/**/*.tsx, app/**/*.tsx, pages/**/*.vue, **/*.astro
-tags:
-  - visual-editing
-  - presentation-tool
-  - stega
-  - overlays
-  - draft-mode
 ---
 
 # Sanity Visual Editing Rules

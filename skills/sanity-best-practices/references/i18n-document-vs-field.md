@@ -1,7 +1,6 @@
 ---
 title: Choose Document vs Field-Level Localization
 description: Document-level for presentation content, field-level for structured data
-tags: localization, i18n, internationalization, content-modeling
 ---
 
 ## Choose Document vs Field-Level Localization

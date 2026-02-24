@@ -1,7 +1,6 @@
 ---
 title: Order Before Slice
 description: Apply order() before slice notation to get correct results
-tags: groq, performance, ordering, slicing
 ---
 
 ## Order Before Slice

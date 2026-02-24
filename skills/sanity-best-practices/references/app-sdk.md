@@ -1,14 +1,6 @@
 ---
 title: Sanity App SDK
 description: Rules for building custom applications with the Sanity App SDK, including React hooks, document handles, real-time patterns, and Suspense best practices.
-globs: src/**/*.tsx, src/**/*.ts, sanity.cli.ts, App.tsx
-tags:
-  - app-sdk
-  - react
-  - hooks
-  - real-time
-  - suspense
-  - custom-apps
 ---
 
 # Sanity App SDK

@@ -1,13 +1,6 @@
 ---
 title: Sanity TypeGen Rules
 description: Workflow for generating TypeScript types from Sanity Schema and GROQ queries.
-globs: package.json, sanity.types.ts, tsconfig.json, sanity.cli.ts
-tags:
-  - typegen
-  - typescript
-  - types
-  - groq
-  - code-generation
 ---
 
 # Sanity TypeGen Rules

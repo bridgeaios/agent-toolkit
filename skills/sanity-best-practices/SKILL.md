@@ -148,6 +148,4 @@ Each guide file contains:
 - Decision matrices and workflow guidance
 - Framework-specific patterns and examples
 
-## Full Compiled Document
 
-For the complete guide with all rules expanded: `AGENTS.md`

@@ -1,7 +1,6 @@
 ---
 title: Always Use defineQuery
 description: Wrap GROQ queries in defineQuery for TypeGen support and type safety
-tags: groq, typescript, typegen, best-practices
 ---
 
 ## Always Use defineQuery

@@ -1,7 +1,6 @@
 ---
 title: Configure Block Previews
 description: Every block needs title, subtitle (block type name), and icon for Studio UX
-tags: page-builder, studio, preview, icons
 ---
 
 ## Configure Block Previews
