@@ -1,7 +1,6 @@
 ---
 title: Import HTML to Portable Text
 description: Use @portabletext/block-tools with JSDOM to convert HTML content
-tags: migration, html, portable-text, import
 ---
 
 ## Import HTML to Portable Text

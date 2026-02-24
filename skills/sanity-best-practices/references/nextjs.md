@@ -1,14 +1,6 @@
 ---
 title: Next.js & Sanity Integration Rules
 description: Integration guide for Next.js App Router, Live Content API, and Sanity Studio (Embedded or Standalone).
-globs: app/**/*.tsx, src/sanity/**/*.ts, sanity.config.ts, studio/**/*.ts
-tags:
-  - nextjs
-  - next-sanity
-  - app-router
-  - live-content
-  - visual-editing
-  - embedded-studio
 ---
 
 # Next.js & Sanity Integration Rules

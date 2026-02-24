@@ -9,7 +9,7 @@ metadata:
 
 # Sanity Best Practices
 
-Comprehensive best practices and integration guides for Sanity development, maintained by Sanity. Contains 26 rules across 10 categories plus 21 integration and topic guides, prioritized by impact to guide schema design, query optimization, and frontend integration.
+Comprehensive best practices and integration guides for Sanity development, maintained by Sanity. Contains integration guides and topic references covering schema design, query optimization, and frontend integration.
 
 ## When to Apply
 
@@ -26,21 +26,6 @@ Reference these guidelines when:
 - Migrating content from other systems
 - Building custom apps with the Sanity App SDK
 - Managing infrastructure with Blueprints
-
-## Rule Categories by Priority
-
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | GROQ Performance | CRITICAL | `groq-` |
-| 2 | Schema Design | HIGH | `schema-` |
-| 3 | Visual Editing | HIGH | `visual-` |
-| 4 | Images | HIGH | `image-` |
-| 5 | Portable Text | HIGH | `pte-` |
-| 6 | Page Builder | MEDIUM | `pagebuilder-` |
-| 7 | Studio Configuration | MEDIUM | `studio-` |
-| 8 | TypeGen | MEDIUM | `typegen-` |
-| 9 | Localization | MEDIUM | `i18n-` |
-| 10 | Migration | LOW-MEDIUM | `migration-` |
 
 ## Quick Reference
 
@@ -59,95 +44,32 @@ Reference these guidelines when:
 
 ### Topic Guides
 
-- `schema` - Schema design, field definitions, validation patterns
-- `groq` - GROQ query patterns, type safety, performance
+- `groq` - GROQ query patterns, type safety, performance optimization
+- `schema` - Schema design, field definitions, validation, deprecation patterns
 - `visual-editing` - Presentation Tool, Stega, overlays, live preview
 - `page-builder` - Page Builder arrays, block components, live editing
 - `portable-text` - Rich text rendering and custom components
-- `image` - Image schema, URL builder, Next.js Image integration
+- `image` - Image schema, URL builder, hotspots, LQIP, Next.js Image
 - `studio-structure` - Desk structure, singletons, navigation
 - `typegen` - TypeGen configuration, workflow, type utilities
 - `seo` - Metadata, sitemaps, Open Graph, JSON-LD
-- `localization` - i18n patterns and locale management
-- `migration` - Content import from HTML, Markdown, other CMSs
-
-### 1. GROQ Performance (CRITICAL)
-
-- `groq-optimizable-filters` - Stack optimizable filters first for index usage
-- `groq-avoid-joins-in-filters` - Use _ref instead of -> in filters
-- `groq-project-fields` - Project only needed fields
-- `groq-order-before-slice` - Apply order() before slice notation
-- `groq-merge-references` - Combine repeated reference resolutions
-- `groq-cursor-pagination` - Use cursor-based pagination for large datasets
-- `groq-define-query` - Wrap queries in defineQuery for TypeGen
-
-### 2. Schema Design (HIGH)
-
-- `schema-define-helpers` - Use defineType, defineField, defineArrayMember
-- `schema-data-over-presentation` - Model what things ARE, not what they look like
-- `schema-reference-vs-object` - Choose references vs nested objects by reuse needs
-- `schema-array-keys` - Use _key for array items, never index
-- `schema-validation` - Patterns for email, URL, cross-field, and async validation
-- `schema-deprecation-pattern` - Safe ReadOnly -> Hidden -> Deprecated lifecycle
-
-### 3. Visual Editing (HIGH)
-
-- `visual-editing-stega-clean` - Use stegaClean() before string comparisons
-- `visual-editing-seo-metadata` - Never allow Stega in metadata/head tags
-- `visual-editing-presentation-tool` - Configure Presentation Tool for overlays
-
-### 4. Images (HIGH)
-
-- `image-hotspot` - Enable hotspot:true for editor-controlled cropping
-- `image-query-lqip` - Query asset->metadata.lqip for blur placeholders
-
-### 5. Portable Text (HIGH)
-
-- `pte-custom-components` - Define typed components for blocks, types, marks, lists
-
-### 6. Page Builder (MEDIUM)
-
-- `pagebuilder-block-previews` - Configure title, subtitle, and icon for blocks
-- `pagebuilder-objects-vs-refs` - Default to objects; use references for shared content
-
-### 7. Studio Configuration (MEDIUM)
-
-- `studio-icons` - Assign icons from @sanity/icons to every type
-- `studio-singleton-pattern` - Implement singletons via Structure, not schema options
-
-### 8. TypeGen (MEDIUM)
-
-- `typegen-workflow` - Extract + generate after schema or query changes
-
-### 9. Localization (MEDIUM)
-
-- `i18n-document-vs-field` - Document-level for presentation, field-level for data
-
-### 10. Migration (LOW-MEDIUM)
-
-- `migration-html-import` - Use @portabletext/block-tools with JSDOM for HTML import
+- `localization` - i18n patterns, document vs field-level, locale management
+- `migration` - Content import overview (see also `migration-html-import`)
+- `migration-html-import` - HTML to Portable Text with @portabletext/block-tools
 
 ## How to Use
 
 Read individual reference files for detailed explanations and code examples:
 
 ```
-references/groq-optimizable-filters.md
-references/schema-data-over-presentation.md
+references/groq.md
+references/schema.md
 references/nextjs.md
 ```
 
-Each rule file contains:
-- Brief explanation of why it matters
-- Incorrect code example with explanation
-- Correct code example with explanation
-- Additional context and references
-
-Each guide file contains:
-- Comprehensive integration or topic coverage
+Each reference file contains:
+- Comprehensive topic or integration coverage
+- Incorrect and correct code examples
 - Decision matrices and workflow guidance
-- Framework-specific patterns and examples
+- Framework-specific patterns where applicable
 
-## Full Compiled Document
-
-For the complete guide with all rules expanded: `AGENTS.md`

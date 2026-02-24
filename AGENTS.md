@@ -27,7 +27,7 @@ npx sanity --help               # List all CLI commands
 
 If the Sanity MCP server (`https://mcp.sanity.io`) is available, use `list_sanity_rules` and `get_sanity_rules` to load always up-to-date rules on demand. Otherwise, use the table below to find local reference files.
 
-> For the full rule index with all 26 best-practice rules and 21 guides, see `skills/sanity-best-practices/SKILL.md`.
+> For the full reference index, see `skills/sanity-best-practices/SKILL.md`.
 
 | Topic | Trigger Keywords | Reference |
 | :--- | :--- | :--- |

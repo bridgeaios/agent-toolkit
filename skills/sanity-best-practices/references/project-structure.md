@@ -1,13 +1,6 @@
 ---
 title: Sanity Project Structure
 description: Project structure patterns for Sanity projects including monorepo and embedded Studio setups.
-globs: sanity.config.ts, sanity.cli.ts, package.json, pnpm-workspace.yaml
-tags:
-  - project-structure
-  - monorepo
-  - embedded-studio
-  - file-organization
-  - schema
 ---
 
 # Sanity Project Structure

@@ -1,13 +1,6 @@
 ---
 title: "Sanity + Shopify + Hydrogen Rules"
 description: Integration guide for Sanity with Shopify using the Hydrogen framework (React Router 7).
-globs: web/app/**/*.tsx, web/app/**/*.ts, studio/sanity.config.ts, web/.env
-tags:
-  - hydrogen
-  - shopify
-  - react-router
-  - visual-editing
-  - ecommerce
 ---
 
 # Sanity + Shopify + Hydrogen Rules

@@ -1,13 +1,6 @@
 ---
 title: Nuxt & Sanity Integration Rules
 description: Integration guide for Nuxt, including @nuxtjs/sanity, visual editing, and data fetching.
-globs: nuxt.config.ts, pages/**/*.vue, components/**/*.vue, composables/**/*.ts
-tags:
-  - nuxt
-  - vue
-  - nuxtjs-sanity
-  - visual-editing
-  - data-fetching
 ---
 
 # Nuxt & Sanity Integration Rules

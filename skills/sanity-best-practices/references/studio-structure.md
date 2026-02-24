@@ -1,13 +1,6 @@
 ---
 title: "Sanity Studio Structure Rules"
 description: Rules for customizing the Sanity Studio Structure (S.structure).
-globs: sanity.config.ts, src/structure/**/*.ts, structure/**/*.ts
-tags:
-  - studio
-  - structure
-  - singleton
-  - navigation
-  - views
 ---
 
 # Sanity Studio Structure Rules
@@ -73,6 +66,15 @@ function createSingleton(S: StructureBuilder, typeName: string, title: string, i
 
 // Usage
 createSingleton(S, 'settings', 'Site Settings', CogIcon)
+```
+
+### Querying Singletons
+```groq
+// By fixed ID (most efficient)
+*[_id == "settings"][0]
+
+// By type (works but slower)
+*[_type == "settings"][0]
 ```
 
 **For localized singletons** (e.g., homepage per language), see `localization.md` Section 6.

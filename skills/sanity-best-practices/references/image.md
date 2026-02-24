@@ -1,13 +1,6 @@
 ---
 title: "Sanity Image Rules"
 description: Best practices for handling images in Sanity: Schema, URL generation, and Next.js Image integration.
-globs: "**/*.tsx, **/*.ts"
-tags:
-  - image
-  - next-image
-  - url-builder
-  - hotspot
-  - lqip
 ---
 
 # Sanity Image Rules
@@ -47,6 +40,15 @@ const builder = createImageUrlBuilder({ projectId, dataset })
 export const urlFor = (source: any) => {
   return builder.image(source)
 }
+```
+
+**Usage:** The URL builder automatically uses hotspot/crop data when available:
+```typescript
+const imageUrl = urlFor(mainImage)
+  .width(800)
+  .height(600)
+  .fit('crop')  // Respects hotspot when cropping
+  .url()
 ```
 
 ## 3. Next.js Image Component Pattern

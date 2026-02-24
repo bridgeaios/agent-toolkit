@@ -1,49 +1,14 @@
 ---
 title: Sanity Content Migration Rules
 description: Best practices for migrating content (HTML, Markdown) into Sanity Portable Text.
-globs: scripts/**/*.ts, import/**/*.ts, migrations/**/*.ts
-tags:
-  - migration
-  - content-import
-  - html
-  - markdown
-  - portable-text
 ---
 
 # Sanity Content Migration Rules
 
 ## 1. HTML Import (Legacy CMS)
-Use `@portabletext/block-tools` with `JSDOM` to convert HTML to Portable Text.
+Use `@portabletext/block-tools` with `JSDOM` to convert HTML to Portable Text. This covers setup, custom deserializers, pre-processing, image uploads, and wrapping in `defineMigration`.
 
-### Cleaning Strategy
-**Before** converting:
--   **Strip Layout:** Remove `<header>`, `<footer>`, `.sidebar`.
--   **Extract Metadata:** Get SEO title/desc from `<head>` *before* processing body.
-
-### Block Tools Config
-```javascript
-const { htmlToBlocks } = require('@portabletext/block-tools')
-const { JSDOM } = require('jsdom')
-
-const blocks = htmlToBlocks(htmlString, blockContentType, {
-  parseHtml: html => new JSDOM(html).window.document,
-  rules: [
-    {
-      // Custom deserializers (e.g. links)
-      deserialize(el, next, block) {
-        if (el.tagName.toLowerCase() === 'a') {
-          return {
-            _type: 'link',
-            href: el.getAttribute('href'),
-            blank: el.getAttribute('target') === '_blank'
-          }
-        }
-        return undefined
-      }
-    }
-  ]
-})
-```
+**See `migration-html-import.md` for the full guide with working examples.**
 
 ## 2. Markdown Import (Static Sites)
 Use `@sanity/block-content-to-markdown` (legacy name, often used in reverse) OR use a dedicated parser like `remark` to convert Markdown to HTML, then use `block-tools`.

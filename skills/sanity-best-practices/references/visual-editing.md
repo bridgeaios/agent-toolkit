@@ -1,13 +1,6 @@
 ---
 title: "Sanity Visual Editing Rules"
 description: Comprehensive guide for Sanity Visual Editing, including Presentation Tool, Stega (Content Source Maps), and Overlays.
-globs: sanity.config.ts, src/**/*.tsx, app/**/*.tsx, pages/**/*.vue, **/*.astro
-tags:
-  - visual-editing
-  - presentation-tool
-  - stega
-  - overlays
-  - draft-mode
 ---
 
 # Sanity Visual Editing Rules
@@ -32,15 +25,15 @@ Framework-agnostic or specific libraries that handle:
 
 When Visual Editing is enabled, string fields will contain invisible characters. You **MUST** clean them before using the value for logic.
 
-**Use `stegaClean` when:**
--   Comparing strings (`if (align === 'center')`)
--   Using strings as IDs or Keys (`<div id={data.slug}>`)
--   Mapping to class names (`const classes = { red: 'bg-red-500' }[color]`)
--   Passing to third-party libraries that validate input (e.g., exact URL matches)
-
-**Do NOT clean when:**
--   Rendering text to the screen (`<h1>{data.title}</h1>`) - This kills the overlay!
--   Passing to `<PortableText />` or image helpers (they handle it).
+| Scenario | Clean? | Why |
+|----------|--------|-----|
+| Comparing strings (`if (x === 'y')`) | ✅ Yes | Stega breaks equality |
+| Using as object keys | ✅ Yes | Keys won't match |
+| Using as HTML IDs | ✅ Yes | Invalid characters |
+| Passing to third-party libraries | ✅ Yes | May validate input |
+| Rendering text (`<h1>{title}</h1>`) | ❌ No | Breaks click-to-edit |
+| Passing to `<PortableText />` | ❌ No | Handles internally |
+| Passing to image helpers | ❌ No | Handles internally |
 
 ```typescript
 import { stegaClean } from "@sanity/client/stega";
@@ -175,13 +168,28 @@ export function DisableDraftMode() {
 -   **General:** Explicitly clean fields used in `<title>` or `<meta>`.
 
 ```typescript
-// Next.js Example
+// Next.js Example — disable stega at fetch level
 export async function generateMetadata({ params }) {
   const { data } = await sanityFetch({
     query: SEO_QUERY,
     stega: false // Critical
   })
   return { title: data.title }
+}
+```
+
+**Alternative:** If you can't disable stega at the fetch level, clean explicitly:
+
+```typescript
+import { stegaClean } from "@sanity/client/stega";
+
+export async function generateMetadata({ params }) {
+  const { data } = await sanityFetch({ query: PAGE_QUERY })
+  return { 
+    title: stegaClean(data.title),
+    description: stegaClean(data.description),
+    openGraph: { url: stegaClean(data.canonicalUrl) }
+  }
 }
 ```
 

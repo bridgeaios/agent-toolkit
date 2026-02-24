@@ -1,13 +1,6 @@
 ---
 title: "Sanity Page Builder Patterns"
 description: Patterns for Sanity Page Builder arrays, block components, and live editing.
-globs: "**/*.tsx"
-tags:
-  - page-builder
-  - blocks
-  - schema
-  - visual-editing
-  - components
 ---
 
 # Sanity Page Builder Patterns

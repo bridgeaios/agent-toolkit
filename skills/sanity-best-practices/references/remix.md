@@ -1,13 +1,6 @@
 ---
 title: React Router (Remix) & Sanity Integration Rules
 description: Integration guide for React Router (formerly Remix) with Sanity, including Loaders and Visual Editing.
-globs: app/routes/**/*.tsx, app/sanity/**/*.ts, remix.config.js, react-router.config.ts, root.tsx
-tags:
-  - remix
-  - react-router
-  - loaders
-  - visual-editing
-  - data-fetching
 ---
 
 # React Router (Remix) & Sanity Integration Rules
