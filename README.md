@@ -252,6 +252,8 @@ Just say: "Get started with Sanity" to begin.
 
 ## Repository structure
 
+> **Note:** The reference files in `skills/sanity-best-practices/references/` are the canonical content for the Sanity MCP server's `list_sanity_rules` / `get_sanity_rules` tools. Each file must have valid `name` and `description` frontmatter — rule names are derived from filenames (e.g., `nextjs.md` → `nextjs`).
+
 ```text
 sanity-io/agent-toolkit/
 ├── AGENTS.md                      # Knowledge router & agent behavior
@@ -274,12 +276,12 @@ sanity-io/agent-toolkit/
 └── skills/                        # Agent skills (agentskills.io format)
     ├── sanity-best-practices/     # Comprehensive Sanity skill
     │   ├── SKILL.md               # Skill definition and quick reference
-    │   └── references/            # Individual reference files
+    │   └── references/            # Canonical content (22 guides)
     │       ├── get-started.md     # Onboarding guide
-    │       ├── nextjs.md          # Next.js integration guide
-    │       ├── groq-*.md          # GROQ best practice rules
-    │       ├── schema-*.md        # Schema best practice rules
-    │       └── ...                # Additional guides and rules
+    │       ├── nextjs.md          # Next.js integration
+    │       ├── groq.md            # GROQ patterns & performance
+    │       ├── schema.md          # Schema design & validation
+    │       └── ...                # See SKILL.md for full index
     ├── content-modeling-best-practices/
     ├── seo-aeo-best-practices/
     └── content-experimentation-best-practices/
