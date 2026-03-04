@@ -11,7 +11,7 @@ description: Guidelines for GROQ queries, type safety, performance optimization,
 **ALWAYS** wrap GROQ queries in `defineQuery` for TypeGen support. The import location depends on your framework:
 
 ```typescript
-// Framework-agnostic (Remix, SvelteKit, Astro, vanilla)
+// Framework-agnostic (Angular, Remix, SvelteKit, Astro, vanilla)
 import { defineQuery } from "groq";
 
 // Next.js (re-exported for convenience)
