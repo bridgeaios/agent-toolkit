@@ -49,13 +49,32 @@ export const environment = {
 
 > There is no Angular-specific Sanity SDK. Use `@sanity/client` directly, wrapped in an Angular service.
 
+### TypeGen in a Monorepo
+
+Sanity TypeGen generates TypeScript types from your schema and GROQ queries. In the Angular monorepo template, TypeGen runs from the Studio side but scans your Angular app's source files. Ensure `studio/sanity.cli.ts` points at the Angular app:
+
+```typescript
+// studio/sanity.cli.ts
+import { defineCliConfig } from 'sanity/cli'
+
+export default defineCliConfig({
+  typegen: {
+    enabled: true,
+    path: '../angular-app/src/**/*.ts',
+    generates: '../angular-app/sanity.types.ts',
+  },
+})
+```
+
+The remaining defaults (`overloadClientMethods: true`, `schema: "schema.json"`) work as-is. Include the generated types file in `angular-app/tsconfig.json` (usually covered by `"include": ["src/**/*.ts", "sanity.types.ts"]`). See `typegen.md` for the full TypeGen workflow, git strategy, and configuration options.
+
 ## 2. Client Setup (Service Pattern)
 
 Create an injectable service wrapping `@sanity/client` and `@sanity/image-url`:
 
 ```typescript
 import { Injectable } from '@angular/core'
-import { createClient, type SanityClient } from '@sanity/client'
+import { createClient, type ClientReturn, type QueryParams, type SanityClient } from '@sanity/client'
 import imageUrlBuilder, { type ImageUrlBuilder } from '@sanity/image-url'
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import { environment } from '../environments/environment'
@@ -75,7 +94,8 @@ export class SanityService {
     this.builder = imageUrlBuilder(this.client)
   }
 
-  fetch<T>(query: string, params?: Record<string, unknown>): Promise<T> {
+  // ClientReturn resolves TypeGen's declaration-merged overloads for defineQuery strings
+  fetch<Query extends string>(query: Query, params?: QueryParams): Promise<ClientReturn<Query>> {
     return this.client.fetch(query, params)
   }
 
@@ -95,11 +115,12 @@ The `resource` API works natively with promises and integrates with Angular sign
 
 ```typescript
 import { Component, input, resource, inject } from '@angular/core'
+import { defineQuery } from 'groq'
 import { SanityService } from '../sanity.service'
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+const POST_QUERY = defineQuery(`*[_type == "post" && slug.current == $slug][0]{
   title, body, mainImage, publishedAt
-}`
+}`)
 
 @Component({
   selector: 'app-post',
@@ -128,6 +149,8 @@ export default class PostComponent {
 
 The `resource` automatically re-fetches when `slug` changes and exposes `value()`, `isLoading()`, and `error()` signals.
 
+> **TypeGen:** Wrapping queries in `defineQuery` enables Sanity TypeGen to infer return types automatically — no manual type imports needed. See `typegen.md` for the full workflow.
+
 ### B. `rxResource` (Observable-based)
 
 For teams using RxJS patterns or needing operators like `retry` and `debounceTime`:
@@ -135,10 +158,11 @@ For teams using RxJS patterns or needing operators like `retry` and `debounceTim
 ```typescript
 import { Component, input, inject } from '@angular/core'
 import { rxResource } from '@angular/core/rxjs-interop'
+import { defineQuery } from 'groq'
 import { from } from 'rxjs'
 import { SanityService } from '../sanity.service'
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`
+const POST_QUERY = defineQuery(`*[_type == "post" && slug.current == $slug][0]`)
 
 @Component({ /* ... */ })
 export default class PostComponent {
@@ -159,10 +183,11 @@ For apps not yet on Angular 19, convert observables to signals:
 ```typescript
 import { Component, inject } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
+import { defineQuery } from 'groq'
 import { from } from 'rxjs'
 import { SanityService } from '../sanity.service'
 
-const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc)`
+const POSTS_QUERY = defineQuery(`*[_type == "post"] | order(publishedAt desc)`)
 
 @Component({ /* ... */ })
 export class HomeComponent {
@@ -306,6 +331,41 @@ Combine with Angular's `NgOptimizedImage` for LCP images:
 <img [src]="post.mainImage | sanityImage: 800" loading="lazy" />
 ```
 
+### LQIP with `NgOptimizedImage`
+
+Sanity provides a base64 LQIP (Low Quality Image Placeholder) per image asset — but you must query it explicitly:
+
+```groq
+mainImage {
+  // @sanity/image-url needs these to build URLs with hotspot/crop support
+  asset,
+  hotspot,
+  crop,
+  alt,
+  // NgOptimizedImage needs these for placeholder and layout
+  "lqip": asset->metadata.lqip,
+  "width": asset->metadata.dimensions.width,
+  "height": asset->metadata.dimensions.height
+}
+```
+
+Feed the LQIP directly into `NgOptimizedImage`'s `placeholder` attribute:
+
+```html
+<img
+  [ngSrc]="post.mainImage | sanityImage: 1200"
+  [width]="post.mainImage.width"
+  [height]="post.mainImage.height"
+  [placeholder]="post.mainImage.lqip"
+  [alt]="post.mainImage.alt"
+  priority
+/>
+```
+
+Angular applies a CSS blur to the LQIP and crossfades to the full image on load. No extra libraries needed.
+
+> **Note:** LQIP strings are small (~200 bytes) so they're safe to inline in SSR HTML and `TransferState`. See `image.md` for the full image query patterns.
+
 See `image.md` for image field schema patterns and hotspot/crop configuration.
 
 ## 7. Modern Angular Features
@@ -359,8 +419,53 @@ Key considerations for Sanity + Angular SSR:
 | Feature | Details |
 |---|---|
 | **Hydration** | `provideClientHydration()` preserves server-rendered DOM. The client reuses it instead of re-rendering. |
-| **HTTP Transfer Cache** | Automatically prevents duplicate API calls during hydration. Data fetched on the server is transferred to the client. |
+| **HTTP Transfer Cache** | Only works with Angular's `HttpClient`. Since `@sanity/client` uses its own HTTP transport, use `TransferState` manually (see below). |
 | **Prerendering** | Use `getPrerenderParams` in route config to generate static pages at build time. |
+
+### Transfer State for `@sanity/client`
+
+Angular's built-in HTTP Transfer Cache does not cover `@sanity/client` requests. Without manual transfer, the client re-fetches every query during hydration. Add `TransferState` to the service from Section 2:
+
+```typescript
++ async function hashQuery(query: string, params?: QueryParams): Promise<string> {
++   const input = query + JSON.stringify(params ?? {})
++   const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input))
++   return Array.from(new Uint8Array(buffer), b => b.toString(16).padStart(2, '0')).join('')
++ }
+
+import { Injectable, inject } from '@angular/core'
++ import { isPlatformBrowser, isPlatformServer } from '@angular/common'
++ import { PLATFORM_ID, makeStateKey, TransferState } from '@angular/core'
+import { createClient, type ClientReturn, type QueryParams, type SanityClient } from '@sanity/client'
+
+export class SanityService {
+  private client: SanityClient
++  private transferState = inject(TransferState)
++  private platformId = inject(PLATFORM_ID)
+
+  async fetch<Query extends string>(query: Query, params?: QueryParams): Promise<ClientReturn<Query>> {
++    const key = makeStateKey<ClientReturn<Query>>(await hashQuery(query, params))
++
++    if (isPlatformBrowser(this.platformId)) {
++      const cached = this.transferState.get(key, null)
++      if (cached !== null) {
++        this.transferState.remove(key)
++        return cached
++      }
++    }
++
+    const result = await this.client.fetch(query, params)
++
++    if (isPlatformServer(this.platformId)) {
++      this.transferState.set(key, result)
++    }
++
+    return result
+  }
+}
+```
+
+The `hashQuery` helper keeps `TransferState` keys short (SHA-256 hex) instead of embedding raw GROQ strings in the serialized HTML.
 
 Prerendering dynamic routes:
 
@@ -416,7 +521,7 @@ export class SanityService {
     })
   }
 
-  fetch<T>(query: string, params?: Record<string, unknown>, preview = false): Promise<T> {
+  fetch<Query extends string>(query: Query, params?: QueryParams, preview = false): Promise<ClientReturn<Query>> {
     const client = preview ? this.previewClient : this.client
     return client.fetch(query, params)
   }

@@ -38,6 +38,7 @@ If the Sanity MCP server (`https://mcp.sanity.io`) is available, use `list_sanit
 | **Import/Migration** | `import`, `wordpress`, `html`, `markdown`, `migrate` | `skills/sanity-best-practices/references/migration.md` |
 | **Next.js** | `next.js`, `app router`, `server component`, `fetch` | `skills/sanity-best-practices/references/nextjs.md` |
 | **Nuxt** | `nuxt`, `vue`, `nuxt.js` | `skills/sanity-best-practices/references/nuxt.md` |
+| **Angular** | `angular`, `signals`, `resource api` | `skills/sanity-best-practices/references/angular.md` |
 | **Astro** | `astro`, `islands` | `skills/sanity-best-practices/references/astro.md` |
 | **Remix/React Router** | `remix`, `react router`, `loader` | `skills/sanity-best-practices/references/remix.md` |
 | **Svelte** | `svelte`, `sveltekit`, `kit` | `skills/sanity-best-practices/references/svelte.md` |
