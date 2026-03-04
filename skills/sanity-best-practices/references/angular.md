@@ -331,6 +331,43 @@ Combine with Angular's `NgOptimizedImage` for LCP images:
 <img [src]="post.mainImage | sanityImage: 800" loading="lazy" />
 ```
 
+### LQIP with `NgOptimizedImage`
+
+Sanity provides a base64 LQIP (Low Quality Image Placeholder) per image asset — but you must query it explicitly:
+
+```groq
+mainImage {
+  asset->{
+    _id,
+    url,
+    metadata {
+      lqip,                          // Base64 blur placeholder
+      dimensions { width, height }   // For aspect ratio
+    }
+  },
+  alt,
+  hotspot,
+  crop
+}
+```
+
+Feed the LQIP directly into `NgOptimizedImage`'s `placeholder` attribute:
+
+```html
+<img
+  [ngSrc]="post.mainImage | sanityImage: 1200"
+  [width]="post.mainImage.asset.metadata.dimensions.width"
+  [height]="post.mainImage.asset.metadata.dimensions.height"
+  [placeholder]="post.mainImage.asset.metadata.lqip"
+  [alt]="post.mainImage.alt"
+  priority
+/>
+```
+
+Angular applies a CSS blur to the LQIP and crossfades to the full image on load. No extra libraries needed.
+
+> **Note:** LQIP strings are small (~200 bytes) so they're safe to inline in SSR HTML and `TransferState`. See `image.md` for the full image query patterns.
+
 See `image.md` for image field schema patterns and hotspot/crop configuration.
 
 ## 7. Modern Angular Features
