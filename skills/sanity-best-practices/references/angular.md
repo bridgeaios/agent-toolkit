@@ -337,17 +337,15 @@ Sanity provides a base64 LQIP (Low Quality Image Placeholder) per image asset â€
 
 ```groq
 mainImage {
-  asset->{
-    _id,
-    url,
-    metadata {
-      lqip,                          // Base64 blur placeholder
-      dimensions { width, height }   // For aspect ratio
-    }
-  },
-  alt,
+  // @sanity/image-url needs these to build URLs with hotspot/crop support
+  asset,
   hotspot,
-  crop
+  crop,
+  alt,
+  // NgOptimizedImage needs these for placeholder and layout
+  "lqip": asset->metadata.lqip,
+  "width": asset->metadata.dimensions.width,
+  "height": asset->metadata.dimensions.height
 }
 ```
 
@@ -356,9 +354,9 @@ Feed the LQIP directly into `NgOptimizedImage`'s `placeholder` attribute:
 ```html
 <img
   [ngSrc]="post.mainImage | sanityImage: 1200"
-  [width]="post.mainImage.asset.metadata.dimensions.width"
-  [height]="post.mainImage.asset.metadata.dimensions.height"
-  [placeholder]="post.mainImage.asset.metadata.lqip"
+  [width]="post.mainImage.width"
+  [height]="post.mainImage.height"
+  [placeholder]="post.mainImage.lqip"
   [alt]="post.mainImage.alt"
   priority
 />
