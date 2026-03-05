@@ -2,6 +2,15 @@
 
 Understanding basic statistics prevents misinterpreting experiment results.
 
+## Table of Contents
+
+- Key concepts
+- Sample size calculation
+- Common statistical mistakes
+- Interpreting results
+- Alternative approaches
+- When to trust results
+
 ## Key Concepts
 
 ### Statistical Significance

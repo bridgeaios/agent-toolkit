@@ -5,6 +5,21 @@ description: Localization patterns for Sanity using official plugins and best pr
 
 # Sanity Localization Rules
 
+Use the contents list to jump directly to the localization pattern you need.
+
+## Table of Contents
+
+- Guiding principles
+- Terminology
+- Locale content type
+- Choosing document-level vs field-level localization
+- Document-level localization
+- Localized singletons
+- Field-level localization
+- AI-powered translation
+- UI enhancement
+- Frontend URL best practices
+
 ## 1. Guiding Principles
 
 ### Priority: Easy Authoring Experience

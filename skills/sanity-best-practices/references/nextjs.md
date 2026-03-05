@@ -5,6 +5,20 @@ description: Integration guide for Next.js App Router, Live Content API, and San
 
 # Next.js & Sanity Integration Rules
 
+Jump to the section that matches the task instead of reading this guide end-to-end.
+
+## Table of Contents
+
+- Architecture patterns
+- Data fetching (Live Content API)
+- Caching and revalidation
+- Visual Editing and clean data
+- Embedded Studio setup
+- Draft Mode setup
+- Error handling
+- Presentation queries
+- Pagination pattern
+
 ## 1. Architecture Patterns
 
 ### Option A: Embedded Studio (Recommended)
