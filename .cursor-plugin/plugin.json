@@ -1,5 +1,5 @@
 {
-  "name": "sanity-plugin",
+  "name": "sanity",
   "displayName": "Sanity",
   "version": "1.0.0",
   "description": "Sanity plugin for Cursor with MCP server, agent skills, agent rules, and commands.",
