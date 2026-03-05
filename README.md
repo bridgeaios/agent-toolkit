@@ -278,8 +278,6 @@ sanity-io/agent-toolkit/
 └── skills/                        # Agent skills (agentskills.io format)
     ├── sanity-best-practices/     # Comprehensive Sanity skill
     │   ├── SKILL.md               # Skill definition and quick reference
-    │   ├── agents/
-    │   │   └── openai.yaml        # Optional UI metadata
     │   └── references/            # Canonical content (22 guides)
     │       ├── get-started.md     # Onboarding guide
     │       ├── nextjs.md          # Next.js integration
@@ -314,7 +312,7 @@ Found a better pattern? Missing a framework or best practice?
 1. Fork the repo.
 2. Install dependencies with `npm ci`.
 3. Update the relevant file in `skills/<skill-name>/SKILL.md`, `skills/<skill-name>/references/`, or `skills/<skill-name>/resources/`.
-4. If you change a skill's positioning, keep `SKILL.md` frontmatter and `agents/openai.yaml` aligned.
+4. Keep `SKILL.md` frontmatter focused on `name` and `description`, since those are the primary discovery fields for skills.
 5. Run `npm run validate:all` to check skill and plugin validity.
 6. Submit a PR.
 
