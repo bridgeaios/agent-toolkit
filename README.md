@@ -189,7 +189,7 @@ Or run `/sanity` to explore all capabilities.
 In Cursor chat, run:
 
 ```
-/add-plugin sanity-plugin
+/add-plugin sanity
 ```
 
 ### Option 4: Manual installation
