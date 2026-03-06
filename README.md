@@ -180,7 +180,9 @@ You should see the Sanity skills listed.
 
 4. Start using: Use natural language and skills activate automatically:
 
-> Use the sanity-scaffold skill to create a blog post schema
+> Help me create a blog post schema in Sanity
+
+> Review my GROQ query and Next.js Visual Editing setup
 
 Or run `/sanity` to explore all capabilities.
 
@@ -282,10 +284,12 @@ sanity-io/agent-toolkit/
     │       ├── groq.md            # GROQ patterns & performance
     │       ├── schema.md          # Schema design & validation
     │       └── ...                # See SKILL.md for full index
-    ├── content-modeling-best-practices/
-    ├── seo-aeo-best-practices/
-    └── content-experimentation-best-practices/
+    ├── content-modeling-best-practices/      # Modeling guidance + topic resources
+    ├── seo-aeo-best-practices/               # SEO/AEO guidance + topic resources
+    └── content-experimentation-best-practices/ # Experiment design + stats resources
 ```
+
+Focused topic skills keep their supporting docs in `resources/`. The main `sanity-best-practices` skill uses `references/` because those files are also the canonical source for the MCP server's Sanity rules.
 
 ---
 
@@ -306,9 +310,11 @@ sanity-io/agent-toolkit/
 Found a better pattern? Missing a framework or best practice?
 
 1. Fork the repo.
-2. Update the relevant file in `skills/<skill-name>/references/`
-3. Run `npm run validate` to check skill validity.
-4. Submit a PR.
+2. Install dependencies with `npm ci`.
+3. Update the relevant file in `skills/<skill-name>/SKILL.md`, `skills/<skill-name>/references/`, or `skills/<skill-name>/resources/`.
+4. Keep `SKILL.md` frontmatter focused on `name` and `description`, since those are the primary discovery fields for skills.
+5. Run `npm run validate:all` to check skill and plugin validity.
+6. Submit a PR.
 
 ---
 

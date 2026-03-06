@@ -5,6 +5,18 @@ description: Guidelines for GROQ queries, type safety, performance optimization,
 
 # GROQ Query Maintenance & Best Practices
 
+Use this contents list to jump to the query concern you need to solve.
+
+## Table of Contents
+
+- Query definition and imports
+- Query fragments
+- Expansion patterns
+- Maintenance workflow
+- Common patterns
+- Performance rules
+- API version best practices
+
 ## 1. Query Definition & Imports
 
 ### The `defineQuery` Function

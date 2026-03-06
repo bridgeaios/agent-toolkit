@@ -5,6 +5,18 @@ description: Rules for defining Sanity Content Models (Schemas), including field
 
 # Sanity Schema Best Practices
 
+Use this contents list to jump to the schema design decision you are making.
+
+## Table of Contents
+
+- Core philosophy: data over presentation
+- Strict definition syntax
+- Shared fields pattern
+- Field patterns
+- References vs nested objects
+- Safe schema updates
+- Validation patterns
+
 ## 1. Core Philosophy: Data > Presentation
 Model **what things are**, not **what they look like**.
 - ❌ **Bad:** `bigHeroText`, `redButton`, `threeColumnRow`, `color`, `fontSize`

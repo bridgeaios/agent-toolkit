@@ -2,6 +2,16 @@
 
 Essential technical SEO elements for modern web applications.
 
+## Table of Contents
+
+- Metadata
+- Sitemaps
+- Canonical URLs
+- Redirects
+- Performance
+- Robots.txt
+- International SEO
+
 ## Metadata
 
 ### Title Tags

@@ -5,6 +5,21 @@ description: Integration guide for Angular, including @sanity/client setup, data
 
 # Angular & Sanity Integration Rules
 
+Jump to the section that matches your Angular version or integration task instead of reading this guide straight through.
+
+## Table of Contents
+
+- Setup and configuration
+- Client setup (service pattern)
+- Data fetching patterns
+- Routing
+- Portable Text rendering
+- Image optimization
+- Modern Angular features
+- SSR and prerendering
+- Visual Editing
+- Error handling
+
 ## 1. Setup & Configuration
 
 Use the official template `sanity-template-angular-clean` as a starting point. It provides a monorepo structure:
