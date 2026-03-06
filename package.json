@@ -4,7 +4,8 @@
   "description": "AI agent resources for Sanity development",
   "private": true,
   "scripts": {
-    "validate": "skills-ref validate ./skills/sanity-best-practices && skills-ref validate ./skills/content-modeling-best-practices && skills-ref validate ./skills/seo-aeo-best-practices && skills-ref validate ./skills/content-experimentation-best-practices",
+    "validate": "skills-ref validate ./skills/sanity-best-practices && skills-ref validate ./skills/content-modeling-best-practices && skills-ref validate ./skills/seo-aeo-best-practices && skills-ref validate ./skills/content-experimentation-best-practices && skills-ref validate ./skills/sanity-functions",
+    "validate:sanity-functions": "skills-ref validate ./skills/sanity-functions",
     "validate:sanity": "skills-ref validate ./skills/sanity-best-practices",
     "validate:content-modeling": "skills-ref validate ./skills/content-modeling-best-practices",
     "validate:seo": "skills-ref validate ./skills/seo-aeo-best-practices",
