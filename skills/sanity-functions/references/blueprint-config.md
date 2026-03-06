@@ -51,15 +51,19 @@ Defines a function triggered by document lifecycle events.
 ```typescript
 defineDocumentFunction({
   name: 'my-function',
-  src: 'functions/my-function',   // optional, inferred from name
-  memory: 1,                      // GB, default 1, max 10
-  timeout: 10,                    // seconds, default 10, max 900
+  displayName: 'My Function',         // optional, human-readable name
+  src: 'functions/my-function',       // optional, inferred from name
+  memory: 1,                          // GB, default 1, max 10
+  timeout: 10,                        // seconds, default 10, max 900
+  runtime: 'nodejs22.x',              // 'node' | 'nodejs22.x' | 'nodejs24.x'
+  project: 'yourProjectId',           // optional, required if blueprint is org-scoped
+  robotToken: 'token-name',           // optional, custom robot token
   event: {
     on: ['create', 'update'],
     filter: '_type == "post"',
     projection: '{title, _id, _type, slug}',
-    includeDrafts: false,          // default false
-    includeAllVersions: false,     // default false
+    includeDrafts: false,              // default false
+    includeAllVersions: false,         // default false
     resource: {
       type: 'dataset',
       id: 'projectId.datasetName',
@@ -76,9 +80,13 @@ defineDocumentFunction({
 | Option | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `name` | `string` | required | Function name. Must match the directory name under `functions/`. |
+| `displayName` | `string` | — | Human-readable display name for the function. |
 | `src` | `string` | `functions/<name>` | Path to the function source directory. |
 | `memory` | `number` | `1` | Memory allocation in GB. Max 10. |
 | `timeout` | `number` | `10` | Execution timeout in seconds. Max 900. |
+| `runtime` | `string` | `'nodejs22.x'` | Runtime environment: `'node'`, `'nodejs22.x'`, or `'nodejs24.x'`. |
+| `project` | `string` | — | Project ID. Required if the blueprint is scoped to an organization. |
+| `robotToken` | `string` | — | Custom robot token name for the function. |
 | `event` | `object` | required | Event configuration (see below). |
 | `env` | `Record<string, string>` | — | Environment variables available via `process.env`. |
 
@@ -86,7 +94,7 @@ defineDocumentFunction({
 
 | Option | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `on` | `string[]` | required | Event types: `'create'`, `'update'`, `'delete'`, `'publish'`. `'publish'` cannot be combined with others. |
+| `on` | `string[]` | required | Event types: `'create'`, `'update'`, `'delete'`. The legacy `'publish'` event (equivalent to `['create', 'update']`) is deprecated. |
 | `filter` | `string` | — | GROQ filter expression (body only, no `*[...]` wrapper). |
 | `projection` | `string` | — | GROQ projection to shape `event.data`. Wrap in `{}`. |
 | `includeDrafts` | `boolean` | `false` | Whether to trigger on draft document changes. |

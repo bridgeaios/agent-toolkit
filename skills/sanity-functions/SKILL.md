@@ -86,7 +86,7 @@ npx sanity@latest blueprints add function \
   --installer npm
 ```
 
-Options for `--fn-type`: `document-create`, `document-update`, `document-publish`, `document-delete`.
+Options for `--fn-type`: `document-create`, `document-update`, `document-publish` (deprecated), `document-delete`.
 
 This scaffolds `functions/my-function/index.ts` and prompts you to update the blueprint file.
 
@@ -101,9 +101,11 @@ export default defineBlueprint({
     defineDocumentFunction({
       name: 'my-function',
       // Optional overrides:
+      // displayName: 'My Function',    // human-readable name
       // src: 'functions/my-function',  // inferred from name if omitted
       // memory: 1,                     // GB, default 1, max 10
       // timeout: 10,                   // seconds, default 10, max 900
+      // runtime: 'nodejs22.x',         // 'node' | 'nodejs22.x' | 'nodejs24.x'
       event: {
         on: ['create', 'update'],
         filter: '_type == "post"',
@@ -271,9 +273,9 @@ See `references/patterns.md` for ready-to-use patterns including: CDN invalidati
 If your function mutates the same document type it listens to, you **will** create an infinite loop. Prevent this by:
 
 1. **Use GROQ filters** to exclude already-processed documents: `_type == 'post' && !defined(firstPublished)`
-2. **Use `@sanity/client` v7.12.0+** which automatically sets the `X-Sanity-Lineage` header for recursion detection
+2. **Use `@sanity/client` v7.12.0+** which automatically sets the `X-Sanity-Lineage` header for recursion detection. Recursive chains are limited to 16 invocations.
 3. **Create drafts/versions** instead of writing to published documents directly
-4. Rate limits apply: 200 invocations per document per 30s, 4000 per project per 30s
+4. Rate limits apply: 200 invocations per function per 30s, 4000 per project per 30s
 
 ### Keeping functions small
 
@@ -321,7 +323,7 @@ await client.patch(id, ops).commit({ dryRun: context.local })
 - `create` — new document created
 - `update` — existing document modified
 - `delete` — document deleted
-- `publish` — cannot combine with other event types
+- `publish` — **deprecated**, equivalent to `on: ['create', 'update']`. Migrate existing `on: ['publish']` to explicit `create`/`update` events.
 - For published documents (default), `update` only fires when a draft/version is published. Often better to use `['create', 'update']` together.
 
 ### Cost considerations
