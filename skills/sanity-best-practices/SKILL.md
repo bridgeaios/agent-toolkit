@@ -22,6 +22,7 @@ Reference these guidelines when:
 - Migrating content from other systems
 - Building custom apps with the Sanity App SDK
 - Managing infrastructure with Blueprints
+- Writing backend code with Sanity Functions
 
 ## Quick Reference
 
@@ -38,6 +39,7 @@ Reference these guidelines when:
 - `project-structure` - Monorepo and embedded Studio patterns
 - `app-sdk` - Custom applications with Sanity App SDK
 - `blueprints` - Infrastructure as Code with Sanity Blueprints
+- `functions` - Backend code with Sanity Functions
 
 ### Topic Guides
 

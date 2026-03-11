@@ -20,9 +20,17 @@ Sanity Functions are serverless event handlers hosted on Sanity's infrastructure
 - Set computed/derived fields (timestamps, slugs, summaries)
 - Invoke Agent Actions (Generate, Transform, Translate) in response to content events
 
+## When NOT to use Functions
+
+- When your logic needs to run longer than 900 seconds (15 min max timeout).
+- When your dependencies exceed 200MB — native code wrappers or heavy SDKs won't fit.
+- When you'd be mutating the same document type you're listening to without a reliable way to break the recursion loop (GROQ filter exclusion or a sentinel field). It's technically possible with guards, but if the logic is complex, you're asking for trouble.
+- When the work is purely client-side or UI-driven (form validation, conditional field visibility) — that belongs in the Studio schema config, not a serverless function.
+
+
 ## Requirements
 
-- **Node.js v22.x** — matches the deployed runtime
+- **Node.js v24.x** — matches the deployed runtime
 - **Sanity CLI v4.12.0+** — use `npx sanity@latest` for latest
 - **@sanity/blueprints** — for blueprint configuration helpers
 - **@sanity/functions** — for handler types and the `documentEventHandler` wrapper
@@ -328,7 +336,7 @@ await client.patch(id, ops).commit({ dryRun: context.local })
 
 ### Cost considerations
 
-Cost = invocations × (memory GB × duration seconds). Default is 1GB memory. A function averaging 1GB and 40ms duration can run ~500k invocations within 20K GB-seconds. Monitor usage at the organization level.
+Cost = invocations × (memory GB × duration seconds). Default is 1GB memory. A function averaging 1GB and 40ms duration can run ~500k invocations within 20K GB-seconds. <a href=https://www.sanity.io/manage>Monitor usage at the organization level.</a>
 
 ---
 
