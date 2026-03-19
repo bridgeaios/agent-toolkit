@@ -13,7 +13,7 @@ npx sanity@latest blueprints init . \
   --project-id <your-project-id>
 ```
 
-Creates `sanity.blueprint.ts` and `blueprint.config.ts` in your project root.
+Creates `sanity.blueprint.ts` in your project root; also creates `.sanity/blueprint.config.json` which should always be added to `.gitignore`.
 
 ### Scaffold a Function
 
