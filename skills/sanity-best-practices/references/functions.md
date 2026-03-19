@@ -469,7 +469,7 @@ export default defineBlueprint({
 Use the [Blueprints GitHub Action](https://github.com/sanity-io/blueprints-actions)
 
 ```yaml
-- uses: sanity-io/blueprints-action@v1
+- uses: sanity-io/blueprints-actions/deploy@deploy-v3
   with:
     sanity-token: ${{ secrets.SANITY_DEPLOY_TOKEN }}
 ```
