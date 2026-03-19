@@ -466,7 +466,7 @@ export default defineBlueprint({
 
 ## CI/CD Deployment
 
-Use the [Blueprints GitHub Action](https://github.com/sanity-io/blueprints-action):
+Use the [Blueprints GitHub Action](https://github.com/sanity-io/blueprints-actions)
 
 ```yaml
 - uses: sanity-io/blueprints-action@v1
