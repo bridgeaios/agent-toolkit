@@ -460,3 +460,10 @@ The App SDK provides hooks and data stores. You bring:
 | Safari dev issues | Use Chrome or Firefox during development |
 | Port 3333 in use | `npm run dev -- --port 3334` |
 | Auth errors | `npx sanity@latest logout && npx sanity@latest login` |
+
+## Working Examples
+
+Complete, runnable code examples extracted from the SDK examples app. Load a specific example for full implementation details:
+
+- `resources/app-sdk-example-bulk-document-edit.md` — Bulk Document Edit: Interactive example showing how to build a bulk document editing table with Sanity UI. Demonstrates paginated document lists with usePaginatedDocuments, document type filtering, inline editing with useDocument and useEditDocument, bulk selection with checkboxes, and batch publish/unpublish using useApplyDocumentActions.
+- `resources/app-sdk-example-document-list.md` — Document List: Interactive example showing how to fetch and display a list of documents using useDocuments (infinite scroll with load more) and useDocumentProjection (lazy per-row field rendering with viewport detection). Includes a search input for filtering results.

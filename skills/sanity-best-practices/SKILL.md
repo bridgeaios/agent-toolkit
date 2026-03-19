@@ -37,6 +37,7 @@ Reference these guidelines when:
 - `hydrogen` - Shopify Hydrogen with Sanity
 - `project-structure` - Monorepo and embedded Studio patterns
 - `app-sdk` - Custom applications with Sanity App SDK
+- `app-sdk-example-*` - Working code examples for the App SDK (document list, search, projections)
 - `blueprints` - Infrastructure as Code with Sanity Blueprints
 
 ### Topic Guides

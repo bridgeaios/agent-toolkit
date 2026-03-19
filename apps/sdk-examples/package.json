@@ -1,0 +1,28 @@
+{
+  "name": "sdk-examples",
+  "version": "1.0.0",
+  "description": "SDK examples",
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@mdx-js/rollup": "^3.1.1",
+    "@sanity/sdk-react": "3.0.0-rc.0",
+    "@sanity/ui": "^3",
+    "styled-components": "^6",
+    "react": "^19.2",
+    "react-dom": "^19.2",
+    "react-router": "^7.5.2",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/mdx": "^2.0.13",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "sanity": "^5.17.1"
+  }
+}
